@@ -49,7 +49,8 @@ io.on("connection", (socket) => {
 });
 
 const saveMessage = (content, sender, receiver, isMy) => {
-  var message = new Message({
+  //intialising a Message Model with receiver and sender id and the message content
+  const message = new Message({
     _id: sender,
     users: [
       {
@@ -63,23 +64,28 @@ const saveMessage = (content, sender, receiver, isMy) => {
   });
 
   Message.findOne({ _id: sender }, (err, doc) => {
+    //if no matching doc to sender id in the messages collection then the message is saved!
     if (!doc) {
       message.save();
     } else {
-      var receiverIndex = doc.users.findIndex(
+      //else if there is a sender id in the messages collection
+      //the receiver id is checked and if available the index is assigned to receiverIndex
+      const receiverIndex = doc.users.findIndex(
         (element) => element._id === receiver
       );
 
+      //if receiver id is found then the message is pushed to the messages list in the particular receiver id and the doc is saved
       if (receiverIndex !== undefined && receiverIndex != -1) {
         doc.users[receiverIndex].messages.push({
-          ismy: isMy,
+          isMy: isMy,
           message: content,
         });
         doc.save();
       } else {
+        //else the message doc is pushed as a new item
         doc.users.push({
           _id: receiver,
-          messages: { ismy: isMy, message: content },
+          messages: { isMy: isMy, message: content },
         });
         doc.save();
       }
