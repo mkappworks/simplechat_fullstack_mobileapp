@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require("../model/user");
 
-//save user info in mongodb at login
+//save user info to mongodb at login
 router.post("/login", async (req, res) => {
   try {
     const newDocument = new User({
@@ -15,6 +15,21 @@ router.post("/login", async (req, res) => {
     console.log("/login post router success");
   } catch (error) {
     res.status(500).json({ message: error });
+  }
+});
+
+//delete user from mongodb at logout
+router.delete("/logout", async (req, res) => {
+  try {
+    const removeDocumnet = await Guest.findByIdAndRemove({
+      email: req.body.email,
+    });
+
+    res.status(200).json(removeDocumnet);
+
+    console.log("/logout delete router success");
+  } catch (error) {
+    res.json({ message: error });
   }
 });
 
