@@ -3,7 +3,7 @@ require("dotenv/config");
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_CONNECTION_USER_ID}:${process.env.DB_CONNECTION_PASSWORD}@chatcluster.nwd47.mongodb.net/SimpleChatDB?retryWrites=true&w=majority`,
+    `mongodb+srv://${process.env.DB_CONNECTION_USER_ID}:${process.env.DB_CONNECTION_PASSWORD}@chatcluster.tvjyu.mongodb.net/SimpleChatDB?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
