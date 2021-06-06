@@ -27,7 +27,7 @@ const kColorBlack = Colors.black;
 //App themes
 const TextTheme kTextThemeDefault = TextTheme(
   headline1:
-      TextStyle(color: kColorYellow, fontWeight: FontWeight.w700, fontSize: 24),
+      TextStyle(color: kColorYellow, fontWeight: FontWeight.w700, fontSize: 28),
   headline2:
       TextStyle(color: kColorBlack, fontWeight: FontWeight.w700, fontSize: 20),
   headline3:
