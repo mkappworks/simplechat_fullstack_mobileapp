@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/login/login_screen.dart';
 import 'package:flutter_svg/svg.dart';
+
+import 'package:flutter_frontend/login/login_screen.dart';
 
 import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
@@ -41,10 +42,7 @@ class UsersAppBar extends StatelessWidget {
             ],
           ),
         ),
-        Divider(
-          color: KColorGrey,
-          thickness: 1,
-        ),
+        Divider(color: KColorGrey, thickness: 1),
       ],
     );
   }
