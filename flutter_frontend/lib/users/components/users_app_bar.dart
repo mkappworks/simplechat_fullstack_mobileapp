@@ -7,10 +7,6 @@ import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
 
 class UsersAppBar extends StatelessWidget {
-  const UsersAppBar({
-    Key? key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     //initialise SizeConfig

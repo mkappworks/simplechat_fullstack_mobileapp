@@ -5,8 +5,6 @@ import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 
 class UserCardList extends StatelessWidget {
-  UserCardList({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     //initialise SizeConfig
