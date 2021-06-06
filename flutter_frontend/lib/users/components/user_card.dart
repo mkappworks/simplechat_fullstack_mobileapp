@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/message/message_screen.dart';
 import 'package:flutter_frontend/model/user_model.dart';
 
 import 'package:flutter_frontend/utilities/constants.dart';
@@ -20,38 +21,41 @@ class UserCard extends StatelessWidget {
 
     return Column(
       children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 3),
-          child: Container(
-            child: Row(
-              children: [
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: kColorLightBlue,
-                  ),
-                  child: Center(
-                    child: Text(
-                      initials,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline3
-                          ?.copyWith(color: KColorWhite),
+        GestureDetector(
+          onTap: () => {},
+          child: Padding(
+            padding:
+                EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 3),
+            child: Container(
+              child: Row(
+                children: [
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: kColorLightBlue,
+                    ),
+                    child: Center(
+                      child: Text(
+                        initials,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            ?.copyWith(color: KColorWhite),
+                      ),
                     ),
                   ),
-                ),
-                addHorizontalSpace(13),
-                Text(
-                  name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      ?.copyWith(fontWeight: FontWeight.w500),
-                ),
-              ],
+                  addHorizontalSpace(13),
+                  Text(
+                    name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.copyWith(fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
