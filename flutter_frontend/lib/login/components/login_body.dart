@@ -51,12 +51,8 @@ class LoginBody extends StatelessWidget {
                       ?.copyWith(color: KColorWhite),
                 ),
                 onPressed: () {
-                  // Navigator.pushNamed(context, ChatScreen.id);
-                  Navigator.pushNamed(
-                    context,
-                    UsersScreen.routeName,
-                    //arguments: UsersDetailsArguments(users: user),
-                  );
+                  Navigator.pushReplacementNamed(
+                      context, UsersScreen.routeName);
                 },
               ),
             ],
