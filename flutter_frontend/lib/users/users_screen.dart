@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
-import 'package:flutter_frontend/utilities/size_config.dart';
 
 import 'components/users_body.dart';
 
