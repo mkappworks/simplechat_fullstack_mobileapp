@@ -37,7 +37,10 @@ class MessageAppBar extends StatelessWidget {
                     ),
                   ),
                   addHorizontalSpace(13),
-                  IconTextUserWidget(userModel: userModel)
+                  IconTextUserWidget(
+                    userModel: userModel,
+                    isNameTapEnabled: true,
+                  )
                 ],
               ),
               GestureDetector(

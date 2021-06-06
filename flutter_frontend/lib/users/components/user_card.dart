@@ -25,7 +25,10 @@ class UserCard extends StatelessWidget {
           child: Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 3),
-            child: IconTextUserWidget(userModel: userModel),
+            child: IconTextUserWidget(
+              userModel: userModel,
+              isNameTapEnabled: false,
+            ),
           ),
         ),
         Divider(color: KColorGrey, thickness: 1),
