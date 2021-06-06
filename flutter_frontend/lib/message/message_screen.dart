@@ -5,7 +5,7 @@ import 'package:flutter_frontend/utilities/constants.dart';
 import 'components/message_body.dart';
 
 class MessageScreen extends StatelessWidget {
-  //setting the routeName for login screen
+  //setting the routeName for message screen
   static String routeName = "/message";
 
   @override
