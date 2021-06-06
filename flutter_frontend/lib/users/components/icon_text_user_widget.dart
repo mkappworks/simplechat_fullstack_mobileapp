@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/message/components/profile_modal_bottom_sheet.dart';
 import 'package:flutter_frontend/model/user_model.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
+
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 
 class IconTextUserWidget extends StatelessWidget {
   final UserModel userModel;
+  final bool isNameTapEnabled;
 
-  IconTextUserWidget({required this.userModel});
+  IconTextUserWidget({
+    required this.userModel,
+    required this.isNameTapEnabled,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,12 +43,20 @@ class IconTextUserWidget extends StatelessWidget {
             ),
           ),
           addHorizontalSpace(13),
-          Text(
-            name,
-            style: Theme.of(context)
-                .textTheme
-                .headline3
-                ?.copyWith(fontWeight: FontWeight.w500),
+          //If the isnameTapedEnabled is passed a true the tap on the Name will trgger 
+          //a ModalBottomSheet with Profile information
+          GestureDetector(
+            onTap: isNameTapEnabled
+                ? () => ProfileModalBottomSheet()
+                    .onMessageAppBarNameTap(context, initials, userModel)
+                : null,
+            child: Text(
+              name,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline3
+                  ?.copyWith(fontWeight: FontWeight.w500),
+            ),
           ),
         ],
       ),
