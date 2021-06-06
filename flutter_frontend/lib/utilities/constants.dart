@@ -12,10 +12,10 @@ const kSimpleChatLogo = 'assets/images/chat_logo.png';
 final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 const String kInvalidEmailError = "Please Enter Valid Email";
-const String kEmailPlaceHolder = "Please Enter your email";
-const String kNamelPlaceHolder = "Please Enter your Name";
-const String kAgePlaceHolder = "Please Enter your phone number";
-const String kGenderPlaceHolder = "Please Enter your address";
+const String kEmailPlaceHolder = "Please Enter your Email";
+const String kNamePlaceHolder = "Please Enter your Name";
+const String kAgePlaceHolder = "Please Enter your Age";
+const String kGenderPlaceHolder = "Please Enter your Gender";
 
 //App colours
 const kColorYellow = Color.fromRGBO(251, 173, 57, 1);
@@ -27,7 +27,7 @@ const kColorBlack = Colors.black;
 //App themes
 const TextTheme kTextThemeDefault = TextTheme(
   headline1:
-      TextStyle(color: kColorBlack, fontWeight: FontWeight.w700, fontSize: 30),
+      TextStyle(color: kColorYellow, fontWeight: FontWeight.w700, fontSize: 24),
   headline2:
       TextStyle(color: kColorBlack, fontWeight: FontWeight.w700, fontSize: 20),
   headline3:
@@ -42,4 +42,30 @@ const TextTheme kTextThemeDefault = TextTheme(
       TextStyle(color: kColorBlack, fontSize: 18, fontWeight: FontWeight.w400),
   subtitle2:
       TextStyle(color: KColorGrey, fontSize: 14, fontWeight: FontWeight.w400),
+);
+
+//TextField Input Decoration
+const kTextFieldDecoration = InputDecoration(
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
+    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+  ),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+    borderRadius: BorderRadius.all(Radius.circular(32.0)),
+  ),
+);
+
+final ButtonStyle flatButtonStyle = TextButton.styleFrom(
+  backgroundColor: kColorLightBlue,
+  primary: KColorWhite,
+  minimumSize: Size(150, 35),
+  //padding: EdgeInsets.symmetric(horizontal: 16.0),
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+  ),
 );
