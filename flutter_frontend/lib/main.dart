@@ -6,9 +6,7 @@ import 'package:flutter_frontend/utilities/routes.dart';
 import './login/login_screen.dart';
 
 void main() {
-  runApp(
-    MyApp(),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
