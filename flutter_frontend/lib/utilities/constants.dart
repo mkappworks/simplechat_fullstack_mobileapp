@@ -39,7 +39,7 @@ const TextTheme kTextThemeDefault = TextTheme(
   headline6:
       TextStyle(color: kColorBlack, fontWeight: FontWeight.w700, fontSize: 12),
   subtitle1:
-      TextStyle(color: kColorBlack, fontSize: 18, fontWeight: FontWeight.w400),
+      TextStyle(color: KColorGrey, fontSize: 18, fontWeight: FontWeight.w400),
   subtitle2:
       TextStyle(color: KColorGrey, fontSize: 14, fontWeight: FontWeight.w400),
 );
