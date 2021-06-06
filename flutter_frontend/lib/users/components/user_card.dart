@@ -22,7 +22,11 @@ class UserCard extends StatelessWidget {
     return Column(
       children: [
         GestureDetector(
-          onTap: () => {},
+          onTap: () => Navigator.pushNamed(
+            context,
+            MessageScreen.routeName,
+            arguments: UserDetailsArguments(userModel: userModel),
+          ),
           child: Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 3),
@@ -63,4 +67,10 @@ class UserCard extends StatelessWidget {
       ],
     );
   }
+}
+
+class UserDetailsArguments {
+  final UserModel userModel;
+
+  UserDetailsArguments({required this.userModel});
 }
