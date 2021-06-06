@@ -15,7 +15,7 @@ class UserCardList extends StatelessWidget {
     return dummyUserList.isNotEmpty
         ? Column(children: [
             ...List.generate(dummyUserList.length,
-                (index) => UserCard(name: dummyUserList[index].name))
+                (index) => UserCard(userModel: dummyUserList[index]))
           ])
         : Column(
             children: [
