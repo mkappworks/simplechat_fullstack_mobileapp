@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/users/components/users_app_bar.dart';
+import 'package:flutter_frontend/utilities/constants.dart';
 
 
 import 'package:flutter_frontend/utilities/size_config.dart';
@@ -11,13 +13,13 @@ class UsersBody extends StatelessWidget {
     SizeConfig().init(context);
 
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 3),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [addVerticalSpace(10)],
-          ),
+      child: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            UsersAppBar(),
+            addVerticalSpace(10),
+          ],
         ),
       ),
     );
