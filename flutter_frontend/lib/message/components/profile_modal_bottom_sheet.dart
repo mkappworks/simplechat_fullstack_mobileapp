@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/message/components/profile_modal_bottom_sheet_text.dart';
-import 'package:flutter_frontend/model/user_model.dart';
+import 'package:flutter_frontend/model/user.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
 
 class ProfileModalBottomSheet {
   void onMessageAppBarNameTap(
-      BuildContext context, String initials, UserModel userModel) {
+      BuildContext context, String initials, User userModel) {
     //initialise SizeConfig
     SizeConfig().init(context);
 
     showModalBottomSheet(
         context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20.0),
+            topLeft: Radius.circular(20.0),
+          ),
+        ),
+        backgroundColor: Colors.white,
         builder: (context) {
           return Container(
             height: SizeConfig.defaultSize! * 25,
@@ -62,4 +69,3 @@ class ProfileModalBottomSheet {
         });
   }
 }
-

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/message/components/profile_modal_bottom_sheet.dart';
-import 'package:flutter_frontend/model/user_model.dart';
+import 'package:flutter_frontend/model/user.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
 
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 
 class IconTextUserWidget extends StatelessWidget {
-  final UserModel userModel;
+  final User userModel;
   final bool isNameTapEnabled;
 
   IconTextUserWidget({

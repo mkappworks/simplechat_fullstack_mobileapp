@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_frontend/message/message_screen.dart';
-import 'package:flutter_frontend/model/user_model.dart';
+import 'package:flutter_frontend/model/user.dart';
 import 'package:flutter_frontend/users/components/icon_text_user_widget.dart';
 import 'package:flutter_frontend/users/utilities/user_arguments.dart';
 
@@ -8,7 +8,7 @@ import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
 
 class UserCard extends StatelessWidget {
-  final UserModel userModel;
+  final User userModel;
 
   UserCard({required this.userModel});
 
