@@ -34,13 +34,13 @@ router.delete("/logout", async (req, res) => {
 });
 
 //get user information
-router.get("/userlist", async (req, res) => {
+router.get("/userinfo", async (req, res) => {
     try {
-      const document = await User.collection.find();
+      const document = await User.findOne({ email: req.body.email });
   
       res.status(200).json(document);
   
-      console.log("/userlist get router success");
+      console.log("/userinfo get router success");
     } catch (error) {
       res.json({ message: error });
     }
