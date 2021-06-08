@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/model/user_model.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:flutter_frontend/model/user.dart';
 import 'package:flutter_frontend/users/components/icon_text_user_widget.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class MessageAppBar extends StatelessWidget {
-  final UserModel userModel;
+  final User userModel;
 
   MessageAppBar({required this.userModel});
 
