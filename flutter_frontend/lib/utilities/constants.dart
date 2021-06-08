@@ -17,6 +17,8 @@ const String kNamePlaceHolder = "Please Enter your Name";
 const String kAgePlaceHolder = "Please Enter your Age";
 const String kGenderPlaceHolder = "Please Enter your Gender";
 
+const String kMessagePlaceHolder = "Type a Message";
+
 //App colours
 const kColorYellow = Color.fromRGBO(251, 173, 57, 1);
 const kColorLightBlue = Color.fromRGBO(57, 160, 251, 1);
@@ -69,3 +71,6 @@ final ButtonStyle flatButtonStyle = TextButton.styleFrom(
     borderRadius: BorderRadius.all(Radius.circular(20.0)),
   ),
 );
+
+//backend baseURL
+const kBaseURL = "http://localhost:4000";
