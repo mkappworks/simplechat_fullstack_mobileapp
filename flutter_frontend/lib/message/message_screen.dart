@@ -19,7 +19,7 @@ class MessageScreen extends StatelessWidget {
       backgroundColor: KColorWhite,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: MessageBody(userModel: args.userModel),
+        child: MessageBody(user: args.userModel),
       ),
     );
   }
