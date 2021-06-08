@@ -2,7 +2,7 @@ import 'package:flutter_frontend/model/user.dart';
 
 // A class that extracts the necessary arguments from the ModalRoute.
 class UserArguments {
-  final User userModel;
+  final User user;
 
-  UserArguments({required this.userModel});
+  UserArguments({required this.user});
 }

@@ -19,7 +19,7 @@ class MessageBody extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            MessageAppBar(userModel: user),
+            MessageAppBar(user: user),
             Container(
               height: SizeConfig.defaultSize! * 70,
             ),

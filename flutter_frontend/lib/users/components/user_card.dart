@@ -8,9 +8,9 @@ import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
 
 class UserCard extends StatelessWidget {
-  final User userModel;
+  final User user;
 
-  UserCard({required this.userModel});
+  UserCard({required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,13 @@ class UserCard extends StatelessWidget {
           onTap: () => Navigator.pushNamed(
             context,
             MessageScreen.routeName,
-            arguments: UserArguments(userModel: userModel),
+            arguments: UserArguments(user: user),
           ),
           child: Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 3),
             child: IconTextUserWidget(
-              userModel: userModel,
+              user: user,
               isNameTapEnabled: false,
             ),
           ),

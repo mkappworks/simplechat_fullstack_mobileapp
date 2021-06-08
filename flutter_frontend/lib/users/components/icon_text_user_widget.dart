@@ -6,18 +6,18 @@ import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 
 class IconTextUserWidget extends StatelessWidget {
-  final User userModel;
+  final User user;
   final bool isNameTapEnabled;
 
   IconTextUserWidget({
-    required this.userModel,
+    required this.user,
     required this.isNameTapEnabled,
   });
 
   @override
   Widget build(BuildContext context) {
     //getting the first two initials from this.userModel.name and capitalising
-    String name = userModel.name;
+    String name = user.name;
     List<String> nameparts = name.split(" ");
     String initials =
         nameparts[0][0].toUpperCase() + nameparts[1][0].toUpperCase();
@@ -48,7 +48,7 @@ class IconTextUserWidget extends StatelessWidget {
           GestureDetector(
             onTap: isNameTapEnabled
                 ? () => ProfileModalBottomSheet()
-                    .onMessageAppBarNameTap(context, initials, userModel)
+                    .onMessageAppBarNameTap(context, initials, user)
                 : null,
             child: Text(
               name,

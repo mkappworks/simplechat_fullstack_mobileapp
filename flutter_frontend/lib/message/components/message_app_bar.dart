@@ -8,9 +8,9 @@ import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 
 class MessageAppBar extends StatelessWidget {
-  final User userModel;
+  final User user;
 
-  MessageAppBar({required this.userModel});
+  MessageAppBar({required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class MessageAppBar extends StatelessWidget {
                   ),
                   addHorizontalSpace(13),
                   IconTextUserWidget(
-                    userModel: userModel,
+                    user: user,
                     isNameTapEnabled: true,
                   )
                 ],
