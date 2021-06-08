@@ -10,7 +10,7 @@ class SharedPreferencesHelper {
     return id;
   }
 
-  //Remove Token and ID
+  //Remove ID
   Future<void> removeMyID() async {
     _pref = await SharedPreferences.getInstance();
     _pref.remove('myID');
