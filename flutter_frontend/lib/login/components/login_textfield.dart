@@ -5,14 +5,12 @@ import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 class LoginTextField extends StatelessWidget {
   final bool isEmail;
   final String hintText;
+  final TextEditingController textEditingController;
 
-  late String textFieldValue;
-
-  LoginTextField({
-    Key? key,
-    required this.isEmail,
-    required this.hintText,
-  }) : super(key: key);
+  LoginTextField(
+      {required this.isEmail,
+      required this.hintText,
+      required this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +19,7 @@ class LoginTextField extends StatelessWidget {
         TextField(
             keyboardType: isEmail ? TextInputType.emailAddress : null,
             textAlign: TextAlign.center,
-            onChanged: (value) {
-              textFieldValue = value;
-            },
+            controller: textEditingController,
             decoration: kTextFieldDecoration.copyWith(hintText: hintText)),
         addVerticalSpace(16),
       ],
