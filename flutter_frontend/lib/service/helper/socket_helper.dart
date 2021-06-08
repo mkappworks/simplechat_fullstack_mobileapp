@@ -42,14 +42,6 @@ class SocketHelper {
         StreamControllerHelper()
             .setLastIndex(_messageController.messageList.length);
       });
-
-      //listen to onlineUsers socket to get the users logged in
-      socket.on('onlineUsers', (data) {
-        var list = List<String>.from(data['users']);
-
-        _userController.setOnlineUsers(list as RxList<String>);
-        print(_userController.onlineUsers);
-      });
     });
   }
 
