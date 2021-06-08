@@ -66,8 +66,28 @@ class LoginBody extends StatelessWidget {
                       ?.copyWith(color: KColorWhite),
                 ),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(
-                      context, UsersScreen.routeName);
+                  //User Data For Service
+                  var userData = <String, dynamic>{
+                    "email": _emailTextEditingController.text,
+                    "name": _nameTextEditingController.text,
+                    "age": _ageTextEditingController.text,
+                    "gender": _genderTextEditingController
+                  };
+                  print(userData);
+                  ServiceManager().login(userData,
+                      completionHandler: (status, message) {
+                    if (status) {
+                      Navigator.pushReplacementNamed(
+                          context, UsersScreen.routeName);
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (context) => LoginAlert(
+                                title: 'Error',
+                                bodyMessage: message,
+                              ));
+                    }
+                  });
                 },
               ),
             ],
