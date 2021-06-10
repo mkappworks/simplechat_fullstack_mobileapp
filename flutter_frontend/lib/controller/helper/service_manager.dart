@@ -98,12 +98,12 @@ class ServiceManager {
 
   // logout function
   Future<void> logout(User userData) async {
-    var _body = json.encode(userData);
-
+    var _id = userData.id;
+   
     try {
       //send a delete http request to /user/logout route in the kBaseURL
-      var response = await http.delete(Uri.parse('$kBaseURL/user/logout'),
-          headers: _header, body: _body);
+      var response = await http.delete(Uri.parse('$kBaseURL/user/logout/$_id'),
+          headers: _header);
 
       if (response.statusCode == 200) {
         //remove userData from local storage when user logout-> and response statusCode equals 200.
