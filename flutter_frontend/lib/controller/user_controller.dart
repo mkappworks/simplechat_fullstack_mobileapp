@@ -35,7 +35,7 @@ class UserController extends GetxController {
   //GetX Controller function to get the all Users logged in the database
   Future<void> setUsersList() async {
     _status.value = ListStatus.loading;
-    _usersList.assignAll(await ServiceManager().fetchUserList());
+    _usersList.assignAll(await ServiceManager().fetchUserList(_loggedInUser));
 
     print('_userList : $_usersList');
 
