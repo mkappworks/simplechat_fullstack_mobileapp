@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/message/components/profile_modal_bottom_sheet.dart';
-import 'package:flutter_frontend/model/user.dart';
-import 'package:flutter_frontend/utilities/constants.dart';
 
+import 'package:flutter_frontend/model/user.dart';
+
+import 'package:flutter_frontend/view/message/components/profile_modal_bottom_sheet.dart';
+
+import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 
 class IconTextUserWidget extends StatelessWidget {
@@ -19,8 +21,8 @@ class IconTextUserWidget extends StatelessWidget {
     //getting the first two initials from this.userModel.name and capitalising
     String name = user.name;
     List<String> nameparts = name.split(" ");
-    String initials =
-        nameparts[0][0].toUpperCase() + nameparts[1][0].toUpperCase();
+    String initials = nameparts[0][0].toUpperCase() + nameparts[1][0].toUpperCase();
+    
 
     return Container(
       child: Row(
@@ -43,7 +45,7 @@ class IconTextUserWidget extends StatelessWidget {
             ),
           ),
           addHorizontalSpace(13),
-          //If the isnameTapedEnabled is passed a true the tap on the Name will trgger 
+          //If the isnameTapedEnabled is passed a true the tap on the Name will trgger
           //a ModalBottomSheet with Profile information
           GestureDetector(
             onTap: isNameTapEnabled
