@@ -1,21 +1,35 @@
+import 'dart:convert';
+
+List<Message> messagesFromJson(String str) =>
+    List<Message>.from(json.decode(str).map((x) => Message.fromJson(x)));
+
+Message messageFromJson(String str) => Message.fromJson(json.decode(str));
+
+String messagesToJson(List<Message> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+String messageToJson(Message data) => json.encode(data.toJson());
+
 class Message {
-  // late String senderId;
-  // late String receiverId;
-  late String message;
-  late bool isMy;
-  late String createdAt;
+  Message({
+    required this.message,
+    required this.isMy,
+    required this.createdAt,
+  });
 
-  Message(
-      {
-      // required this.senderId,
-      // required this.receiverId,
-      required this.message,
-      required this.isMy,
-      required this.createdAt});
+  final String message;
+  final String isMy;
+  final String createdAt;
 
-  Message.fromJson(Map<String, dynamic> json) {
-    message = json['message'] ?? "";
-    isMy = json['isMy'];
-    createdAt = json['createdAt'];
-  }
+  factory Message.fromJson(Map<String, dynamic> json) => Message(
+        message: json["message"] ?? "",
+        isMy: json["isMy"],
+        createdAt: json["createdAt"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "message": message,
+        "isMy": isMy,
+        "createdAt": createdAt,
+      };
 }
