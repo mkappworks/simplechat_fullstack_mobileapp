@@ -79,7 +79,7 @@ class ServiceManager {
 
       if (response.statusCode == 201) {
         User _user = userFromJson(response.body);
-        //save myID to local storage when user login.
+        //saving userData to local storage when user login and statusCode equals to 201.
         await _saveUserInfoForLocale(_user);
         return {'status': true, 'message': 'User is logged in'};
       } else if (response.statusCode == 200) {
@@ -108,6 +108,8 @@ class ServiceManager {
       if (response.statusCode == 200) {
         //remove userData from local storage when user logout-> and response statusCode equals 200.
         await _removeUserInfoFromLocale();
+      } else {
+        print('logout error ${jsonDecode(response.body)['message']}');
       }
     } catch (error) {
       print('logout trycatch $error');
