@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/login/components/login_alert.dart';
-import 'package:flutter_frontend/login/components/login_textfield.dart';
-import 'package:flutter_frontend/service/service_manager.dart';
-import 'package:flutter_frontend/users/users_screen.dart';
+import 'package:get/get.dart';
+
+import 'package:flutter_frontend/view/users/users_screen.dart';
+
+import 'package:flutter_frontend/controller/user_controller.dart';
+
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 
+import 'package:flutter_frontend/view/login/components/login_alert.dart';
+import 'package:flutter_frontend/view/login/components/login_textfield.dart';
+
 class LoginBody extends StatelessWidget {
+  final UserController _userController = Get.find();
   final TextEditingController _emailTextEditingController =
       TextEditingController();
   final TextEditingController _nameTextEditingController =
@@ -65,29 +71,31 @@ class LoginBody extends StatelessWidget {
                       .headline3
                       ?.copyWith(color: KColorWhite),
                 ),
-                onPressed: () {
+                onPressed: () async {
                   //User Data For Service
-                  var userData = <String, dynamic>{
-                    "email": _emailTextEditingController.text,
-                    "name": _nameTextEditingController.text,
-                    "age": _ageTextEditingController.text,
-                    "gender": _genderTextEditingController
+                  Map<String, dynamic> userData = <String, dynamic>{
+                    'email': _emailTextEditingController.text,
+                    'name': _nameTextEditingController.text,
+                    'age': '_ageTextEditingController.text',
+                    'gender': '_genderTextEditingController.text'
                   };
-                  print(userData);
-                  ServiceManager().login(userData,
-                      completionHandler: (status, message) {
-                    if (status) {
-                      Navigator.pushReplacementNamed(
-                          context, UsersScreen.routeName);
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (context) => LoginAlert(
-                                title: 'Error',
-                                bodyMessage: message,
-                              ));
-                    }
-                  });
+
+                  await _userController.setLoggedUser(userData);
+
+                  if (_userController.getCompletionMessage['status']) {
+
+                        await _userController.setUsersList();
+                    Navigator.pushReplacementNamed(
+                        context, UsersScreen.routeName);
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) => LoginAlert(
+                              title: 'Login',
+                              bodyMessage: _userController
+                                  .getCompletionMessage['message'],
+                            ));
+                  }
                 },
               ),
             ],
