@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter_frontend/model/user.dart';
-import 'package:flutter_frontend/users/components/icon_text_user_widget.dart';
+
+import 'package:flutter_frontend/view/users/components/icon_text_user_widget.dart';
+
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/sized_box_functions.dart';

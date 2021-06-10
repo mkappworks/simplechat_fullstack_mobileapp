@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/message/components/bottom_message_box.dart';
-import 'package:flutter_frontend/message/components/message_app_bar.dart';
+
 import 'package:flutter_frontend/model/user.dart';
+
+import 'package:flutter_frontend/view/message/components/bottom_message_box.dart';
+import 'package:flutter_frontend/view/message/components/message_app_bar.dart';
 
 import 'package:flutter_frontend/utilities/size_config.dart';
 
