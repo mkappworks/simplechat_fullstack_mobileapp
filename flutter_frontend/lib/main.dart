@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/controller/message_controller.dart';
+import 'package:flutter_frontend/controller/user_controller.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/routes.dart';
 
-import 'package:flutter_frontend/login/login_screen.dart';
+import 'view/login/login_screen.dart';
 
 void main() {
+  Get.put(UserController());
+  Get.put(MessageController());
   runApp(MyApp());
 }
 
