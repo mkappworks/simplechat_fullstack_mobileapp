@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import 'package:flutter_frontend/login/login_screen.dart';
+import 'package:flutter_frontend/view/login/login_screen.dart';
 
 import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/constants.dart';

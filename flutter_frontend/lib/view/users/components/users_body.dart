@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_frontend/users/components/user_card_list.dart';
-import 'package:flutter_frontend/users/components/users_app_bar.dart';
+import 'package:flutter_frontend/view/users/components/user_card_list.dart';
+import 'package:flutter_frontend/view/users/components/users_app_bar.dart';
 
 import 'package:flutter_frontend/utilities/size_config.dart';
 

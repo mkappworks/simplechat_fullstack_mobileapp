@@ -22,7 +22,7 @@ class LoginAlert extends StatelessWidget {
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text('Tamam'),
+          child: Text('Close'),
           onPressed: () {
             Navigator.of(context).pop();
           },

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/message/message_screen.dart';
+
 import 'package:flutter_frontend/model/user.dart';
-import 'package:flutter_frontend/users/components/icon_text_user_widget.dart';
-import 'package:flutter_frontend/users/utilities/user_arguments.dart';
+
+import 'package:flutter_frontend/view/message/message_screen.dart';
+import 'package:flutter_frontend/view/users/components/icon_text_user_widget.dart';
+import 'package:flutter_frontend/view/users/utilities/user_arguments.dart';
 
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';

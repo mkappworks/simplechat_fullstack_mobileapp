@@ -1,45 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'package:flutter_frontend/viewmodel/message_view_model.dart';
+import 'package:flutter_frontend/model/message.dart';
 
 class MessageUnit extends StatelessWidget {
-  final MessageViewModel messageViewModel;
+  final Message message;
   final bool isMy;
 
-  MessageUnit({required this.messageViewModel, required this.isMy});
+  MessageUnit({required this.message, required this.isMy});
 
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment:
-          messageViewModel.isMy ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: message.isMy ? Alignment.centerRight : Alignment.centerLeft,
       child: ConstrainedBox(
         constraints:
             BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.85),
         child: Column(
-          crossAxisAlignment: messageViewModel.isMy
-              ? CrossAxisAlignment.end
-              : CrossAxisAlignment.start,
+          crossAxisAlignment:
+              message.isMy ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
-                  color: messageViewModel.isMy
-                      ? Color(0xFF1289FD)
-                      : Color(0xFFE5E4EA)),
+                  color: message.isMy ? Color(0xFF1289FD) : Color(0xFFE5E4EA)),
               margin: EdgeInsets.all(8),
               padding: EdgeInsets.all(8),
-              child: Text(messageViewModel.content,
+              //TODO:NEED TO CORRECT message.content add in  MessageController
+              child: Text('message.content',
                   style: TextStyle(
-                      color:
-                          messageViewModel.isMy ? Colors.white : Colors.black)),
+                      color: message.isMy ? Colors.white : Colors.black)),
             ),
             Padding(
               padding: EdgeInsets.only(left: 12, right: 12, bottom: 4),
               child: Text(
-                DateFormat('HH:mm')
-                    .format(DateTime.parse(messageViewModel.createdAt)),
+                DateFormat('HH:mm').format(DateTime.parse(message.createdAt)),
                 style: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 14,
