@@ -21,8 +21,13 @@ class IconTextUserWidget extends StatelessWidget {
     //getting the first two initials from this.userModel.name and capitalising
     String name = user.name;
     List<String> nameparts = name.split(" ");
-    String initials = nameparts[0][0].toUpperCase() + nameparts[1][0].toUpperCase();
-    
+    String initials;
+
+    //if there is more than 1 name included in the user.name then get the initials of the first two names separate by a space and return it in UpperCase
+    //else return the capitalised initial of the first word
+    initials = nameparts.length > 1
+        ? nameparts[0][0].toUpperCase() + nameparts[1][0].toUpperCase()
+        : initials = nameparts[0][0].toUpperCase();
 
     return Container(
       child: Row(
