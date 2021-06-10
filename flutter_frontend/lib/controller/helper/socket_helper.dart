@@ -1,21 +1,23 @@
-import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter_frontend/controller/message_controller.dart';
 import 'package:flutter_frontend/controller/user_controller.dart';
-import 'package:flutter_frontend/service/helper/stream_controller_helper.dart';
-import 'package:flutter_frontend/service/helper/preferences_helper.dart';
+import 'package:flutter_frontend/controller/helper/stream_controller_helper.dart';
+
+import 'package:flutter_frontend/utilities/constants.dart';
 
 class SocketHelper {
-  MessageController _messageController = Get.put(MessageController());
-  UserController _userController = Get.put(UserController());
+  MessageController _messageController = Get.find();
+  UserController _userController = Get.find();
   late IO.Socket socket;
   var id;
 
   void connectSocket() async {
     //get the the id from local storage
-    id = await SharedPreferencesHelper().getMyID();
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String id = pref.getString('myID')!;
 
     //connect to the socket at KBaseURL
     socket = IO.io(kBaseURL, <String, dynamic>{
