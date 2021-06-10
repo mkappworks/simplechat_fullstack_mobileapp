@@ -97,9 +97,9 @@ class ServiceManager {
   }
 
   // logout function
-  Future<void> logout(User userData) async {
-    var _id = userData.id;
-   
+  Future<void> logout(User loggedInUserData) async {
+    String _id = loggedInUserData.id;
+
     try {
       //send a delete http request to /user/logout route in the kBaseURL
       var response = await http.delete(Uri.parse('$kBaseURL/user/logout/$_id'),
@@ -117,7 +117,9 @@ class ServiceManager {
   }
 
   // Fetch UserList
-  Future<List<User>> fetchUserList() async {
+  Future<List<User>> fetchUserList(User loggedInUserData) async {
+    String _id = loggedInUserData.id;
+
     try {
       var response = await http.get(Uri.parse('$kBaseURL/user/userlist'),
           headers: _header);
@@ -127,9 +129,10 @@ class ServiceManager {
       print('fetchUserList jsonbody $jsonBody');
 
       if (response.statusCode == 200) {
-        List<User> usersList = usersFromJson(jsonBody);
-        print('fetchUserList $usersList');
-        return usersList;
+        List<User> _usersList =
+            usersFromJson(jsonBody).where((user) => user.id != _id).toList();
+        print('fetchUserList $_usersList');
+        return _usersList;
       } else {
         return <User>[];
       }
