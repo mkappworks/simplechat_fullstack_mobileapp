@@ -53,6 +53,20 @@ class ServiceManager {
     }
   }
 
+  //removing userdata from local storage
+  Future<void> _removeUserInfoFromLocale() async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.remove('myID');
+      pref.remove('myEmail');
+      pref.remove('myName');
+      pref.remove('myAge');
+      pref.remove('myGender');
+    } catch (error) {
+      print('Error at _removeUserInfoFromLocale : $error');
+    }
+  }
+
   // login function
   Future<Map<String, dynamic>> login(Map<String, dynamic> userData) async {
     var _body = json.encode(userData);
@@ -79,6 +93,24 @@ class ServiceManager {
     } catch (error) {
       print('login trycatch $error');
       return {'status': false, 'message': 'Login trycatch $error'};
+    }
+  }
+
+  // logout function
+  Future<void> logout(User userData) async {
+    var _body = json.encode(userData);
+
+    try {
+      //send a delete http request to /user/logout route in the kBaseURL
+      var response = await http.delete(Uri.parse('$kBaseURL/user/logout'),
+          headers: _header, body: _body);
+
+      if (response.statusCode == 200) {
+        //remove userData from local storage when user logout-> and response statusCode equals 200.
+        await _removeUserInfoFromLocale();
+      }
+    } catch (error) {
+      print('logout trycatch $error');
     }
   }
 
