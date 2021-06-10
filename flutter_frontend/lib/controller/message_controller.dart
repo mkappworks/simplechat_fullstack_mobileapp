@@ -1,14 +1,15 @@
 import 'package:get/get.dart';
 
-import 'package:flutter_frontend/model/message.dart';
+import 'package:flutter_frontend/service/service_manager.dart';
 
-import 'package:flutter_frontend/controller/helper/service_manager.dart';
+import 'package:flutter_frontend/viewmodel/message_view_model.dart';
+import 'package:flutter_frontend/model/message.dart';
 
 enum MessageStatus { loading, loaded, empty }
 
 class MessageController extends GetxController {
   MessageStatus messageStatus = MessageStatus.empty;
-  RxList<Message> messageList = <Message>[].obs;
+  RxList<MessageViewModel> messageList = <MessageViewModel>[].obs;
 
 //Getx Controller Function to get message(s) of a given receiver user from the messageList
   Future<void> fetchMessage(String receiverID) async {
@@ -16,10 +17,9 @@ class MessageController extends GetxController {
 
     var messages = await ServiceManager().fetchMessageList(receiverID);
 
-//TODO: NEED to update messageList MessageController
-    // this.messageList =
-    //     (messages.map((messageElement) => Message(message: messageElement)))
-    //         as RxList<Message>;
+    this.messageList = (messages
+            .map((messageElement) => MessageViewModel(message: messageElement)))
+        as RxList<MessageViewModel>;
 
     if (messageList.isNotEmpty) {
       messageStatus = MessageStatus.loaded;
@@ -29,20 +29,19 @@ class MessageController extends GetxController {
     update();
   }
 
-//TODO: NEED to update addMessage function in MessageController
 //Getx Controller Function to add message of a given receiver user to the messageList
-   void addMessage({required String message, required bool isMy}) {
-  //   messageList.add(
-  //     Message(
-  //       message: Message(
-  //         message: message,
-  //         isMy: isMy,
-  //         createdAt: DateTime.now().toString(),
-  //       ),
-  //     ),
-  //   );
-  //   messageStatus = MessageStatus.loaded;
+  void addMessage({required String message, required bool isMy}) {
+    messageList.add(
+      MessageViewModel(
+        message: Message(
+          message: message,
+          isMy: isMy,
+          createdAt: DateTime.now().toString(),
+        ),
+      ),
+    );
+    messageStatus = MessageStatus.loaded;
 
-  //   update();
-   }
+    update();
+  }
 }
