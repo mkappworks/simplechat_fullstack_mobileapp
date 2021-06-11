@@ -10,13 +10,11 @@ import 'package:flutter_frontend/utilities/constants.dart';
 class ServiceManager {
   final _header = {"Content-Type": "application/json"};
 
-  // Save to locale when user sign up.
+  // Save to user details in local storage when user login.
   Future<void> _saveUserInfoForLocale(User user) async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
-      print('print _saveUserInfo myID body : $user');
 
-      print('Data _saveUserInfoForLocale : ${user.id}');
       await pref.setString('myID', user.id);
       await pref.setString('myEmail', user.email);
       await pref.setString('myName', user.name);
@@ -27,7 +25,7 @@ class ServiceManager {
     }
   }
 
-//get logged in user details
+  //get logged in user details
   Future<User?> getUserInfoFromLocale() async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
@@ -70,7 +68,6 @@ class ServiceManager {
   // login function
   Future<Map<String, dynamic>> login(Map<String, dynamic> userData) async {
     var _body = json.encode(userData);
-    print('body of userData: $_body');
 
     try {
       //send a post http request to /user/login route in the kBaseURL
@@ -91,7 +88,6 @@ class ServiceManager {
         };
       }
     } catch (error) {
-      print('login trycatch $error');
       return {'status': false, 'message': 'Login trycatch $error'};
     }
   }
@@ -126,12 +122,9 @@ class ServiceManager {
 
       var jsonBody = response.body;
 
-      print('fetchUserList jsonbody $jsonBody');
-
       if (response.statusCode == 200) {
         List<User> _usersList =
             usersFromJson(jsonBody).where((user) => user.id != _id).toList();
-        print('fetchUserList $_usersList');
         return _usersList;
       } else {
         return <User>[];
