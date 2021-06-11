@@ -25,8 +25,7 @@ class MessageUnit extends StatelessWidget {
                   color: message.isMy ? Color(0xFF1289FD) : Color(0xFFE5E4EA)),
               margin: EdgeInsets.all(8),
               padding: EdgeInsets.all(8),
-              //TODO:NEED TO CORRECT message.content add in  MessageController
-              child: Text('message.content',
+              child: Text(message.message,
                   style: TextStyle(
                       color: message.isMy ? Colors.white : Colors.black)),
             ),
