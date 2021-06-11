@@ -47,6 +47,19 @@ class UserController extends GetxController {
     update();
   }
 
+  //GetX Controller function to set new Users logged in to the socket room
+  Future<void> setNewUserListFromSocket(List<User> userList) async {
+    _status.value = ListStatus.loading;
+    _usersList.assignAll(userList);
+
+    if (_usersList.isEmpty) {
+      _status.value = ListStatus.empty;
+    } else {
+      _status.value = ListStatus.loaded;
+    }
+    update();
+  }
+
   //gets the ListStatus
   Rx<ListStatus> get getStatus => _status;
   //get the all logged in user list in db (except the current _loggedInUser)
