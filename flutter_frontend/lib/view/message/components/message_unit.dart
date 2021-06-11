@@ -5,9 +5,8 @@ import 'package:flutter_frontend/model/message.dart';
 
 class MessageUnit extends StatelessWidget {
   final Message message;
-  final bool isMy;
 
-  MessageUnit({required this.message, required this.isMy});
+  MessageUnit({required this.message});
 
   @override
   Widget build(BuildContext context) {
