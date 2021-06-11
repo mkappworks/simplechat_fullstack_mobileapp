@@ -15,7 +15,7 @@ class MessageController extends GetxController {
   RxList<Message> _messageList = <Message>[].obs;
 
 //Getx Controller Function to get message(s) of a given receiver user from the messageList
-  Future<void> fetchMessage(String receiverID) async {
+  Future<void> fetchMessages(String receiverID) async {
     _messageStatus.value = MessageStatus.loading;
 
     _messageList.assignAll(await MessageServiceHelper.shared.fetchMessageList(receiverID));
@@ -31,6 +31,7 @@ class MessageController extends GetxController {
 //Getx Controller Function to send message intended to a given receiver user
   Future<void> sendMessage(
       {required String receiver, required String message}) async {
+        
     addMessage(message: message, isMy: true);
 
     StreamControllerHelper.shared.setLastIndex(getMessageList.length);
