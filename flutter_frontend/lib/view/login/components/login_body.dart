@@ -16,6 +16,7 @@ import 'package:flutter_frontend/view/login/components/login_textfield.dart';
 
 class LoginBody extends HookWidget {
   final UserController _userController = Get.find();
+  final SocketController _socketController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -85,6 +86,8 @@ class LoginBody extends HookWidget {
                   if (_userController.getCompletionMessage['status']) {
                     //triggers function to get all other loggedUser data
                     await _userController.setUsersList();
+                    //triggers function to connect loggedUser to socket room
+                    await _socketController.connectToSocket();
                     Navigator.pushReplacementNamed(
                         context, UsersScreen.routeName);
                   } else {
