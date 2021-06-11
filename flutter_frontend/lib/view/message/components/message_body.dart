@@ -6,6 +6,7 @@ import 'package:flutter_frontend/view/message/components/bottom_message_box.dart
 import 'package:flutter_frontend/view/message/components/message_app_bar.dart';
 
 import 'package:flutter_frontend/utilities/size_config.dart';
+import 'package:flutter_frontend/view/message/components/message_view.dart';
 
 class MessageBody extends StatelessWidget {
   final User user;
@@ -22,9 +23,7 @@ class MessageBody extends StatelessWidget {
         child: Column(
           children: [
             MessageAppBar(user: user),
-            Container(
-              height: SizeConfig.defaultSize! * 70,
-            ),
+            MessageView(receiverID: user.id),
             BottomMessageBox(user: user)
           ],
         ),
