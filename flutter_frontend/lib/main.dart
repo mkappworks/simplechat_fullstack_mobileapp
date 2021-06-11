@@ -3,17 +3,17 @@ import 'package:get/get.dart';
 
 import 'view/login/login_screen.dart';
 
-import 'package:flutter_frontend/controller/message_controller.dart';
-import 'package:flutter_frontend/controller/socket_controller.dart';
-import 'package:flutter_frontend/controller/user_controller.dart';
+import 'package:flutter_frontend/controller/message/message_controller.dart';
+import 'package:flutter_frontend/controller/socket/socket_controller.dart';
+import 'package:flutter_frontend/controller/user/user_controller.dart';
 
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/routes.dart';
 
 void main() {
   Get.put(UserController());
-  Get.put(MessageController());
   Get.put(SocketController());
+  Get.put(MessageController());
   runApp(MyApp());
 }
 

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter_frontend/model/user.dart';
 
-import 'package:flutter_frontend/controller/socket_controller.dart';
+import 'package:flutter_frontend/controller/socket/socket_controller.dart';
 
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
@@ -45,7 +45,7 @@ class BottomMessageBox extends HookWidget {
               GestureDetector(
                 onTap: () async {
                   if (_messageTextEditingController.text.trim().isNotEmpty) {
-                    await _socketController.sendMessage(
+                    await _socketController.sendMessageToSocket(
                       receiver: user.id,
                       message: _messageTextEditingController.text,
                     );
