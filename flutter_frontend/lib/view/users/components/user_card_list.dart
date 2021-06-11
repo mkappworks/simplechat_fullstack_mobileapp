@@ -5,7 +5,7 @@ import 'package:flutter_frontend/model/user.dart';
 
 import 'package:flutter_frontend/view/users/components/user_card.dart';
 
-import 'package:flutter_frontend/controller/user_controller.dart';
+import 'package:flutter_frontend/controller/user/user_controller.dart';
 
 import 'package:flutter_frontend/utilities/size_config.dart';
 
@@ -18,7 +18,7 @@ class UserCardList extends StatelessWidget {
     SizeConfig().init(context);
 
     //depending on the ListStatus which can be loading or loaded or empty from UserController the respective widgets are returned
-       return Obx(() {
+    return Obx(() {
       switch (_userController.getStatus.value) {
         case ListStatus.loading:
           return Center(child: CircularProgressIndicator());
@@ -31,7 +31,6 @@ class UserCardList extends StatelessWidget {
         case ListStatus.empty:
           return Column(
             children: [
-              //addVerticalSpace(SizeConfig.defaultSize! * 30),
               Center(
                 child: Text(
                   'No Users Found!',
