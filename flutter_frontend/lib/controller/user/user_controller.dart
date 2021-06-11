@@ -2,7 +2,8 @@ import 'package:get/get.dart';
 
 import 'package:flutter_frontend/model/user.dart';
 
-import 'package:flutter_frontend/controller/helper/service_manager.dart';
+import 'package:flutter_frontend/controller/helper/local_storage_helper.dart';
+import 'package:flutter_frontend/controller/user/helper/user_service_helper.dart';
 
 enum ListStatus { loading, loaded, empty }
 
@@ -14,8 +15,8 @@ class UserController extends GetxController {
 
   //GetX Controller function to get the User logged in the database
   Future<void> setLoggedUser(Map<String, dynamic> userData) async {
-    var _completeMessageValue = await ServiceManager().login(userData);
-    var _userValue = await ServiceManager().getUserInfoFromLocale();
+    var _completeMessageValue = await UserServiceHelper.shared.login(userData);
+    var _userValue = await LocalStorageHelper.shared.getUserInfoFromLocale();
     if (_userValue != null) {
       _loggedInUser = _userValue;
       _completeMessage = _completeMessageValue;
@@ -26,7 +27,7 @@ class UserController extends GetxController {
   //GetX Controller function to delete the User that is logging out, from database
   Future<void> setLogoutUser() async {
     _status.value = ListStatus.loading;
-    await ServiceManager().logout(_loggedInUser);
+    await UserServiceHelper.shared.logout(_loggedInUser);
     _usersList.clear();
     _completeMessage.clear();
     update();
@@ -35,7 +36,7 @@ class UserController extends GetxController {
   //GetX Controller function to get the all Users logged in the database (except the current user) and assign it to _userList
   Future<void> setUsersList() async {
     _status.value = ListStatus.loading;
-    _usersList.assignAll(await ServiceManager().fetchUserList(_loggedInUser));
+    _usersList.assignAll(await UserServiceHelper.shared.fetchUserList(_loggedInUser));
 
     if (_usersList.isEmpty) {
       _status.value = ListStatus.empty;

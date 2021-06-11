@@ -1,22 +1,21 @@
 import 'package:get/get.dart';
 
-import '../helper/socket_helper.dart';
+import 'helper/socket_service_helper.dart';
 
 class SocketController extends GetxController {
-  final SocketHelper _socketHelper = SocketHelper();
-
   //connect to socket room
   Future<void> connectToSocket() async {
-    await _socketHelper.connectSocket();
+    await SocketServiceHelper.shared.connectSocket();
   }
 
   //disconnect from socket room
   Future<void> disconnectFromSocket() async {
-    await _socketHelper.disconnectSocket();
+    await SocketServiceHelper.shared.disconnectSocket();
   }
 
   Future<void> sendMessageToSocket(
       {required String receiver, required String message}) async {
-    _socketHelper.sendMessage(receiver: receiver, message: message);
+    SocketServiceHelper.shared
+        .sendMessage(receiver: receiver, message: message);
   }
 }

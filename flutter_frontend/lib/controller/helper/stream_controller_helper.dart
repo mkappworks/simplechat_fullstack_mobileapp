@@ -1,18 +1,18 @@
 import 'dart:async';
 
-class StreamControllerHelper{
+class StreamControllerHelper {
+  static final shared = StreamControllerHelper();
 
-   StreamController<int> _controller = StreamController<int>.broadcast();
+  StreamController<int> _controller = StreamController<int>.broadcast();
 
   Stream<int> get stream => _controller.stream;
   StreamSink<int> get sink => _controller.sink;
 
-  closeStream(){
+  closeStream() {
     _controller.close();
   }
 
-  setLastIndex(int index){
+  setLastIndex(int index) {
     sink.add(index);
   }
-
 }

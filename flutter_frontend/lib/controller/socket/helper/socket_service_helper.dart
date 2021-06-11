@@ -1,19 +1,21 @@
 import 'dart:io';
+import 'package:flutter_frontend/controller/message/message_controller.dart';
+import 'package:flutter_frontend/controller/user/user_controller.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'package:flutter_frontend/model/user.dart';
 
-import 'package:flutter_frontend/controller/message_controller.dart';
-import 'package:flutter_frontend/controller/user_controller.dart';
+import 'package:flutter_frontend/controller/helper/local_storage_helper.dart';
 import 'package:flutter_frontend/controller/helper/stream_controller_helper.dart';
-import 'package:flutter_frontend/controller/helper/service_manager.dart';
 
-class SocketHelper {
+class SocketServiceHelper {
   MessageController _messageController = Get.find();
   UserController _userController = Get.find();
   // static String _serverIP =
   //     Platform.isAndroid ? 'http://192.168.1.2' : 'http://localhost';
+
+  static final shared = SocketServiceHelper();
 
   static String _serverIP =
       Platform.isIOS ? 'http://localhost' : 'http://10.0.2.2';
@@ -24,19 +26,17 @@ class SocketHelper {
   });
 
   var _logInUserData;
- 
-  Future<void> connectSocket() async {
 
+  Future<void> connectSocket() async {
     //get the the userdata from local storage
-    _logInUserData = await ServiceManager().getUserInfoFromLocale();
+    _logInUserData = await LocalStorageHelper.shared.getUserInfoFromLocale();
 
     //connect to the socket
     socket.connect();
 
     //listen to 'connect' socket in the server
     socket.on('connect', (data) {
-
-       //forward the id of the new logged in user to socket
+      //forward the id of the new logged in user to socket
       if (_logInUserData != null) {
         socket.emit('userData', {'id': _logInUserData.id});
       }
@@ -66,13 +66,14 @@ class SocketHelper {
         _messageController.addMessage(message: content, isMy: false);
 
         //set the Last index in the StreamControllerHelper
-        StreamControllerHelper()
-            .setLastIndex(_messageController.getMessageList.length);
+        StreamControllerHelper.shared.
+            setLastIndex(_messageController.getMessageList.length);
       });
     });
   }
 
- //trigger when logging out from the UsersScreen()
+
+  //trigger when logging out from the UsersScreen()
   Future<void> disconnectSocket() async {
     if (_logInUserData != null) {
       socket.disconnect();

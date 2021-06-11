@@ -1,10 +1,10 @@
-import 'package:flutter_frontend/controller/socket_controller.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_frontend/model/message.dart';
 
 import 'package:flutter_frontend/controller/helper/stream_controller_helper.dart';
-import 'package:flutter_frontend/controller/helper/service_manager.dart';
+import 'package:flutter_frontend/controller/message/helper/message_service_helper.dart';
+import 'package:flutter_frontend/controller/socket/socket_controller.dart';
 
 enum MessageStatus { loading, loaded, empty }
 
@@ -18,7 +18,7 @@ class MessageController extends GetxController {
   Future<void> fetchMessage(String receiverID) async {
     _messageStatus.value = MessageStatus.loading;
 
-    _messageList.assignAll(await ServiceManager().fetchMessageList(receiverID));
+    _messageList.assignAll(await MessageServiceHelper.shared.fetchMessageList(receiverID));
 
     if (_messageList.isNotEmpty) {
       _messageStatus.value = MessageStatus.loaded;
@@ -33,7 +33,7 @@ class MessageController extends GetxController {
       {required String receiver, required String message}) async {
     addMessage(message: message, isMy: true);
 
-    StreamControllerHelper().setLastIndex(getMessageList.length);
+    StreamControllerHelper.shared.setLastIndex(getMessageList.length);
 
     await _socketController.sendMessageToSocket(
         receiver: receiver, message: message);
