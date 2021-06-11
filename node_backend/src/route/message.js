@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Message = require("../model/message");
 
-router.get("/fetchmessage", async (req, res) => {
+router.post("/fetchmessage", async (req, res) => {
   let senderID = req.body.sender;
   let receiverID = req.body.receiver;
 
