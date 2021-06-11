@@ -27,16 +27,16 @@ router.post("/login", async (req, res) => {
 });
 
 //delete user from mongodb at logout
-router.delete("/logout", async (req, res) => {
-  try {
-    const removeDocumnet = await Guest.findByIdAndRemove({
-      email: req.body.email,
+router.delete("/logout/:id", async (req, res) => {
+   try {
+    const removeDocumnet = await User.findByIdAndDelete({
+      _id: req.params.id,
     });
-
+    console.log("/logout delete router SUCCESS");
     res.status(200).json(removeDocumnet);
 
-    console.log("/logout delete router success");
   } catch (error) {
+    console.log("/logout delete router FAILED");
     res.json({ message: error });
   }
 });
