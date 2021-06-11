@@ -4,16 +4,24 @@ const User = require("../model/user");
 //save user info to mongodb at login
 router.post("/login", async (req, res) => {
   try {
-    const newDocument = new User({
-      email: req.body.email,
-      name: req.body.name,
-      age: req.body.age,
-      gender: req.body.gender,
-    });
-    const saveDocument = await newDocument.save();
-    res.status(201).json(saveDocument);
-    console.log("/login post router success");
+    const document = await User.findOne({ email: req.body.email });
+    if(document !=null){
+          console.log("/login post router SUCCESS - document found in DB");
+          res.status(200);
+    }else{
+      const newDocument = new User({
+        email: req.body.email,
+        name: req.body.name,
+        age: req.body.age,
+        gender: req.body.gender,
+      });
+      const saveDocument = await newDocument.save();
+      console.log("/login post router SUCCESS - saving new document");
+      res.status(201).json({userdata: saveDocument});
+      
+    }
   } catch (error) {
+    console.log("/login post router FAILED");
     res.status(500).json({ message: error });
   }
 });
@@ -36,13 +44,14 @@ router.delete("/logout", async (req, res) => {
 //get all users information
 router.get("/userlist", async (req, res) => {
   try {
-    const document = await User.collection.find();
-
+    const document = await User.find();
+      console.log("/userlist get router SUCCESS");
     res.status(200).json(document);
 
-    console.log("/userlist get router success");
+    
   } catch (error) {
-    res.json({ message: error });
+    console.log(`/userlist get router FAILED : ${error}`);
+     res.json({ message: error });
   }
 });
 
@@ -50,11 +59,12 @@ router.get("/userlist", async (req, res) => {
 router.get("/userinfo", async (req, res) => {
     try {
       const document = await User.findOne({ email: req.body.email });
-  
+         console.log("/userinfo get router SUCCESS");
       res.status(200).json(document);
   
-      console.log("/userinfo get router success");
+      
     } catch (error) {
+      console.log("/userinfo get router FAILED");
       res.json({ message: error });
     }
   });
