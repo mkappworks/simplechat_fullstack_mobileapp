@@ -4,8 +4,8 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_frontend/view/login/login_screen.dart';
 
-import 'package:flutter_frontend/controller/socket_controller.dart';
-import 'package:flutter_frontend/controller/user_controller.dart';
+import 'package:flutter_frontend/controller/socket/socket_controller.dart';
+import 'package:flutter_frontend/controller/user/user_controller.dart';
 
 import 'package:flutter_frontend/utilities/size_config.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
