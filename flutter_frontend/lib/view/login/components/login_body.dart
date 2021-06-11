@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_frontend/view/users/users_screen.dart';
 
 import 'package:flutter_frontend/controller/user_controller.dart';
+import 'package:flutter_frontend/controller/socket_controller.dart';
 
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
@@ -12,21 +14,18 @@ import 'package:flutter_frontend/utilities/sized_box_functions.dart';
 import 'package:flutter_frontend/view/login/components/login_alert.dart';
 import 'package:flutter_frontend/view/login/components/login_textfield.dart';
 
-class LoginBody extends StatelessWidget {
+class LoginBody extends HookWidget {
   final UserController _userController = Get.find();
-  final TextEditingController _emailTextEditingController =
-      TextEditingController();
-  final TextEditingController _nameTextEditingController =
-      TextEditingController();
-  final TextEditingController _ageTextEditingController =
-      TextEditingController();
-  final TextEditingController _genderTextEditingController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     //initialise SizeConfig
     SizeConfig().init(context);
+
+    final _emailTextEditingController = useTextEditingController();
+    final _nameTextEditingController = useTextEditingController();
+    final _ageTextEditingController = useTextEditingController();
+    final _genderTextEditingController = useTextEditingController();
 
     return SafeArea(
       child: Padding(
@@ -80,11 +79,12 @@ class LoginBody extends StatelessWidget {
                     'gender': '_genderTextEditingController.text'
                   };
 
+                  //triggers function to save current loggedUser data
                   await _userController.setLoggedUser(userData);
 
                   if (_userController.getCompletionMessage['status']) {
-
-                        await _userController.setUsersList();
+                    //triggers function to get all other loggedUser data
+                    await _userController.setUsersList();
                     Navigator.pushReplacementNamed(
                         context, UsersScreen.routeName);
                   } else {
