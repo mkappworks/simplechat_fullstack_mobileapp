@@ -37,8 +37,6 @@ class UserController extends GetxController {
     _status.value = ListStatus.loading;
     _usersList.assignAll(await ServiceManager().fetchUserList(_loggedInUser));
 
-    print('_userList : $_usersList');
-
     if (_usersList.isEmpty) {
       _status.value = ListStatus.empty;
     } else {
