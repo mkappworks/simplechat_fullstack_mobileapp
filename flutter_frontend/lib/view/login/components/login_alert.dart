@@ -21,11 +21,11 @@ class LoginAlert extends StatelessWidget {
         ),
       ),
       actions: <Widget>[
-        FlatButton(
-          child: Text('Close'),
+        TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
+          child: Text('Close'),
         ),
       ],
     );
