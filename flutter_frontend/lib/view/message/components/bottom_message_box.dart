@@ -12,9 +12,9 @@ import 'package:flutter_frontend/utilities/size_config.dart';
 
 class BottomMessageBox extends HookWidget {
   final User user;
+  final SocketController _socketController = Get.find();
 
   BottomMessageBox({required this.user});
-
   @override
   Widget build(BuildContext context) {
     final _focusNode = useFocusNode();
@@ -43,7 +43,15 @@ class BottomMessageBox extends HookWidget {
                         hintText: kMessagePlaceHolder)),
               ),
               GestureDetector(
-                onTap: ()  { },
+                onTap: () async {
+                  if (_messageTextEditingController.text.trim().isNotEmpty) {
+                    await _socketController.sendMessage(
+                      receiver: user.id,
+                      message: _messageTextEditingController.text,
+                    );
+                    _messageTextEditingController.clear();
+                  }
+                },
                 child: Container(
                   width: 50,
                   height: 50,
