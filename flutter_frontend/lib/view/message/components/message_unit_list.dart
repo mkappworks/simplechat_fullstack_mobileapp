@@ -8,7 +8,7 @@ import 'package:flutter_frontend/view/message/components/message_unit.dart';
 import 'package:flutter_frontend/controller/message_controller.dart';
 
 class MessageUnitList extends StatelessWidget {
-  final MessageController _messageController = Get.put(MessageController());
+  final MessageController _messageController = Get.find();
   final ItemScrollController itemScrollController;
   final ItemPositionsListener itemPositionsListener;
 
@@ -18,14 +18,22 @@ class MessageUnitList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Still testing
+       if (_messageController.getMessageStatus.value !=
+        MessageStatus.empty && MediaQuery.of(context).viewInsets.bottom > 0) {
+      itemScrollController.scrollTo(
+          index: _messageController.getMessageList.length - 1,
+          duration: Duration(milliseconds: 200));
+    }
     return ScrollablePositionedList.builder(
-        itemScrollController: itemScrollController,
-        itemPositionsListener: itemPositionsListener,
-        itemCount: _messageController.messageList.length,
-        itemBuilder: (context, index) {
-          return Obx(() => MessageUnit(
-              isMy: _messageController.messageList[index].isMy,
-              message: _messageController.messageList[index]));
-        });
+      itemScrollController: itemScrollController,
+      itemPositionsListener: itemPositionsListener,
+      itemCount: _messageController.getMessageList.length,
+      itemBuilder: (context, index) {
+        return Obx(
+          () => MessageUnit(message: _messageController.getMessageList[index]),
+        );
+      },
+    );
   }
 }
