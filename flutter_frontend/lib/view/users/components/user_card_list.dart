@@ -16,34 +16,33 @@ class UserCardList extends StatelessWidget {
   Widget build(BuildContext context) {
     //initialise SizeConfig
     SizeConfig().init(context);
-    
+
     //depending on the ListStatus which can be loading or loaded or empty from UserController the respective widgets are returned
-    switch (_userController.getStatus.value) {
-      case ListStatus.loading:
-        return Center(child: CircularProgressIndicator());
-      case ListStatus.loaded:
-        return Obx(() { 
+       return Obx(() {
+      switch (_userController.getStatus.value) {
+        case ListStatus.loading:
+          return Center(child: CircularProgressIndicator());
+        case ListStatus.loaded:
           RxList<User> _usersList = _userController.getUsersList;
           return Column(children: [
             ...List.generate(
                 _usersList.length, (index) => UserCard(user: _usersList[index]))
           ]);
-        });
-      case ListStatus.empty:
-        return Column(
-          children: [
-            //addVerticalSpace(SizeConfig.defaultSize! * 30),
-            Center(
-              child: Text(
-                'No Users Found!',
-                style: Theme.of(context).textTheme.subtitle1,
+        case ListStatus.empty:
+          return Column(
+            children: [
+              //addVerticalSpace(SizeConfig.defaultSize! * 30),
+              Center(
+                child: Text(
+                  'No Users Found!',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
               ),
-            ),
-          ],
-        );
-
-      default:
-        return Container();
-    }
+            ],
+          );
+        default:
+          return Container();
+      }
+    });
   }
 }
