@@ -25,7 +25,7 @@ class MessageBody extends StatelessWidget {
             Container(
               height: SizeConfig.defaultSize! * 70,
             ),
-            BottomMessageBox()
+            BottomMessageBox(user: user)
           ],
         ),
       ),
