@@ -1,38 +1,31 @@
 const server = require("./server");
-const cors = require("cors");
 const io = require("socket.io")(server);
-
 const Message = require("../model/message");
 const User = require("../model/user");
 
-console.log("Socket Connection Begin 1");
-
 io.on('connect', (socket) => {
 
-  console.log("Socket Connection Begin 2");
+  console.log("Connected to Socket");
 
   socket.on('userData', async (data) =>  {
-    //data is the 
+    //data from the client side containing the id
     let userID = data.id;
-
     // Join the Room
     socket.join(userID);
-
+    //get User collection from db
     const document = await User.find();
 
-
+  //broadcast all Users from the db in a JSON format
   socket.broadcast.emit('loggedInUser', JSON.stringify([...document]));
 
     socket.on('disconnect', async () => {
-      
-    const document = await User.find();
-          
-
+      //get User collection from db
+    const document = await User.find();     
     // Leave From Room
     socket.leave(userID);
-
+    console.log("Disconnected from Socket");
+    //broadcast all Users from the db in a JSON format
     socket.broadcast.emit('loggedInUser', JSON.stringify([...document]));
-   
     });
 
     socket.on('send_message', (message) => {
@@ -40,6 +33,7 @@ io.on('connect', (socket) => {
       senderChatID = message.senderChatID;
       content = message.content;
 
+      //save content in the senders collection
       saveMessage(content, senderChatID, receiverChatID, true);
 
       socket.in(receiverChatID).emit('receive_message', {
@@ -48,6 +42,7 @@ io.on('connect', (socket) => {
         receiverChatID: receiverChatID,
       });
 
+      //save content in the receivers collection
       saveMessage(content, receiverChatID, senderChatID, false);
     }
     );
@@ -56,7 +51,7 @@ io.on('connect', (socket) => {
 
 const saveMessage = (content, sender, receiver, isMy) => {
   //intialising a Message Model with receiver and sender id and the message content
-  const message = new Message({
+  let message = new Message({
     _id: sender,
     users: [
       {
@@ -99,4 +94,4 @@ const saveMessage = (content, sender, receiver, isMy) => {
   }).catch((err) => {
     console.log(err.message);
   });
-};
+ };
