@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import 'helper/socket_helper.dart';
+import '../helper/socket_helper.dart';
 
 class SocketController extends GetxController {
   final SocketHelper _socketHelper = SocketHelper();
