@@ -1,50 +1,56 @@
 const server = require("./server");
+const cors = require("cors");
 const io = require("socket.io")(server);
+
 const Message = require("../model/message");
+const User = require("../model/user");
 
-console.log("Socket Connection Begin");
+console.log("Socket Connection Begin 1");
 
-var connectedUsers = [];
+io.on('connect', (socket) => {
 
-io.on("connection", (socket) => {
-  socket.on("chatID", (data) => {
-    let chatID = data.id;
+  console.log("Socket Connection Begin 2");
 
-    socket.join(chatID);
-    connectedUsers.push(chatID);
+  socket.on('userData', async (data) =>  {
+    //data is the 
+    let userID = data.id;
 
-    socket.broadcast.emit("onlineUsers", {
-      users: connectedUsers,
+    // Join the Room
+    socket.join(userID);
+
+    const document = await User.find();
+
+
+  socket.broadcast.emit('loggedInUser', JSON.stringify([...document]));
+
+    socket.on('disconnect', async () => {
+      
+    const document = await User.find();
+          
+
+    // Leave From Room
+    socket.leave(userID);
+
+    socket.broadcast.emit('loggedInUser', JSON.stringify([...document]));
+   
     });
 
-    socket.on("disconnect", () => {
-      //Remove ConnectedUsers
-      let index = connectedUsers.indexOf(chatID);
-      if (index > -1) {
-        connectedUsers.splice(index, 1);
-      }
-      // Leave From Room
-      socket.leave(chatID);
-      socket.broadcast.emit("onlineUsers", {
-        users: connectedUsers,
-      });
-    });
-
-    socket.on("send_message", (message) => {
+    socket.on('send_message', (message) => {
       receiverChatID = message.receiverChatID;
       senderChatID = message.senderChatID;
       content = message.content;
 
       saveMessage(content, senderChatID, receiverChatID, true);
 
-      socket.in(receiverChatID).emit("receive_message", {
+      socket.in(receiverChatID).emit('receive_message', {
         content: content,
         senderChatID: senderChatID,
         receiverChatID: receiverChatID,
       });
 
       saveMessage(content, receiverChatID, senderChatID, false);
-    });
+    }
+    );
   });
 });
 
