@@ -18,7 +18,7 @@ class Message {
   });
 
   final String message;
-  final String isMy;
+  final bool isMy;
   final String createdAt;
 
   factory Message.fromJson(Map<String, dynamic> json) => Message(
