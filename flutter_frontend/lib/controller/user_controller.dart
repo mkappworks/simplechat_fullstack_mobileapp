@@ -23,7 +23,7 @@ class UserController extends GetxController {
     update();
   }
 
-//GetX Controller function to get the User logged in the database
+  //GetX Controller function to delete the User that is logging out, from database
   Future<void> setLogoutUser() async {
     _status.value = ListStatus.loading;
     await ServiceManager().logout(_loggedInUser);
@@ -32,7 +32,7 @@ class UserController extends GetxController {
     update();
   }
 
-  //GetX Controller function to get the all Users logged in the database
+  //GetX Controller function to get the all Users logged in the database (except the current user) and assign it to _userList
   Future<void> setUsersList() async {
     _status.value = ListStatus.loading;
     _usersList.assignAll(await ServiceManager().fetchUserList(_loggedInUser));
@@ -44,13 +44,15 @@ class UserController extends GetxController {
     } else {
       _status.value = ListStatus.loaded;
     }
-
-    print('status at MessageController.setUserList : $_status');
     update();
   }
 
+  //gets the ListStatus
   Rx<ListStatus> get getStatus => _status;
+  //get the all logged in user list in db (except the current _loggedInUser)
   RxList<User> get getUsersList => _usersList;
+  //gets a message containing {'status': bool, 'message': String};
   Map<String, dynamic> get getCompletionMessage => _completeMessage;
+  //gets user details of _loggedInUser in as a User() model
   User get getLoggedInUser => _loggedInUser;
 }
