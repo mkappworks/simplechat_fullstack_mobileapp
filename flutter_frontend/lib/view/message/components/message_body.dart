@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_frontend/model/user.dart';
 
-import 'package:flutter_frontend/view/message/components/bottom_message_box.dart';
+import 'package:flutter_frontend/view/message/components/message_text_field.dart';
 import 'package:flutter_frontend/view/message/components/message_app_bar.dart';
 
 import 'package:flutter_frontend/utilities/size_config.dart';
@@ -24,7 +24,7 @@ class MessageBody extends StatelessWidget {
           children: [
             MessageAppBar(user: user),
             MessageView(receiverID: user.id),
-            BottomMessageBox(user: user)
+            MessageTextField(user: user)
           ],
         ),
       ),
