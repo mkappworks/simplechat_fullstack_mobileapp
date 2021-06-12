@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter_frontend/model/user.dart';
 
@@ -10,11 +10,11 @@ import 'package:flutter_frontend/controller/socket/socket_controller.dart';
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
 
-class BottomMessageBox extends HookWidget {
+class MessageTextField extends HookWidget {
   final User user;
   final SocketController _socketController = Get.find();
 
-  BottomMessageBox({required this.user});
+  MessageTextField({required this.user});
   @override
   Widget build(BuildContext context) {
     final _focusNode = useFocusNode();
@@ -59,13 +59,12 @@ class BottomMessageBox extends HookWidget {
                     shape: BoxShape.circle,
                     color: kColorLightBlue,
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Center(
-                        child: SvgPicture.asset(
-                      kSendSvg,
+                  child: Center(
+                    child: Icon(
+                      CupertinoIcons.paperplane_fill,
+                      size: 30,
                       color: KColorWhite,
-                    )),
+                    ),
                   ),
                 ),
               ),
