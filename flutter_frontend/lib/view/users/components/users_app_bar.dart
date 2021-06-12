@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:flutter_frontend/view/login/login_screen.dart';
 
