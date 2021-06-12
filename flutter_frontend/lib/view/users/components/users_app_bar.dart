@@ -33,19 +33,17 @@ class UsersAppBar extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () async {
-                  //this triggers a function that will remove the user from the db
+                  //triggers a function that will remove the user from the db
                   await _userController.setLogoutUser();
-                  //this triggers a function that will remove the user from socket room
+                  //triggers a function that will remove the user from socket room
                   await _socketController.disconnectFromSocket();
 
                   Navigator.pushReplacementNamed(
                       context, LoginScreen.routeName);
                 },
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  color: Colors.transparent,
-                  child: SvgPicture.asset(kExitSvg),
+                child: Icon(
+                  Icons.logout,
+                  size: 35,
                 ),
               ),
             ],

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -33,10 +34,9 @@ class MessageAppBar extends StatelessWidget {
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Container(
-                      width: 30,
-                      height: 30,
-                      child: SvgPicture.asset(kArrowLeftSvg),
+                    child: Icon(
+                      CupertinoIcons.arrow_left,
+                      size: 35,
                     ),
                   ),
                   addHorizontalSpace(13),
@@ -47,13 +47,11 @@ class MessageAppBar extends StatelessWidget {
                 ],
               ),
               GestureDetector(
-                onTap: () {},
-                child: Container(
-                  width: 30,
-                  height: 30,
-                  child: SvgPicture.asset(kSearchSvg),
-                ),
-              ),
+                  onTap: () {},
+                  child: Icon(
+                    CupertinoIcons.search,
+                    size: 35,
+                  )),
             ],
           ),
         ),
