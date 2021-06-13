@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/controller/message/message_controller.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_frontend/view/login/login_screen.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_frontend/utilities/constants.dart';
 class UsersAppBar extends StatelessWidget {
   final UserController _userController = Get.find();
   final SocketController _socketController = Get.find();
+  final MessageController _messageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,12 @@ class UsersAppBar extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () async {
-                  //triggers a function that will remove the user from the db
+                  ////triggers a function that will reset the properties in the UserController and remove the user from the db
                   await _userController.setLogoutUser();
                   //triggers a function that will remove the user from socket room
                   await _socketController.disconnectFromSocket();
+                  //triggers a function that will reset the properties in the MessageController
+                  _messageController.resetProperties();
 
                   Navigator.pushReplacementNamed(
                       context, LoginScreen.routeName);
