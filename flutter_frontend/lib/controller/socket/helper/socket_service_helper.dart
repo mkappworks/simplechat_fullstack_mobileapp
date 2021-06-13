@@ -1,19 +1,16 @@
 import 'dart:io';
-import 'package:flutter_frontend/controller/message/message_controller.dart';
-import 'package:flutter_frontend/controller/user/user_controller.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import 'package:flutter_frontend/model/user.dart';
 
+import 'package:flutter_frontend/controller/message/message_controller.dart';
+import 'package:flutter_frontend/controller/user/user_controller.dart';
 import 'package:flutter_frontend/controller/helper/local_storage_helper.dart';
-import 'package:flutter_frontend/controller/helper/stream_controller_helper.dart';
 
 class SocketServiceHelper {
   MessageController _messageController = Get.find();
   UserController _userController = Get.find();
-  // static String _serverIP =
-  //     Platform.isAndroid ? 'http://192.168.1.2' : 'http://localhost';
 
   static final shared = SocketServiceHelper();
 
@@ -31,46 +28,38 @@ class SocketServiceHelper {
     //get the the userdata from local storage
     _logInUserData = await LocalStorageHelper.shared.getUserInfoFromLocale();
 
-    //connect to the socket
-    socket.connect();
+    //connect to the socket the socket if the socket is disconnected
+    if (socket.disconnected) socket.connect();
 
-    //listen to 'connect' socket in the server
+    //listen to 'connect' namespace in the server
     socket.on('connect', (data) {
-      //forward the id of the new logged in user to socket
+      //forward the id of the new logged in user to 'userData' namespace in the server
       if (_logInUserData != null) {
         socket.emit('userData', {'id': _logInUserData.id});
       }
+    });
 
-      //listen to the loggedInUser socket to get the users logged in
-      socket.on('loggedInUser', (data) {
-        List<User> _decodedList = usersFromJson(data);
-        List<User> _newList = [];
+    //listen to the 'loggedInUser' namespace to get the users logged in from the server
+    socket.on('loggedInUser', (data) {
+      List<User> _decodedList = usersFromJson(data);
+      List<User> _newList = [];
 
-        //_decodedList contains all the Users in the db
-        //_newList contains all Users in the db except the _logInUserData
-        if (_logInUserData != null) {
-          _newList = _decodedList
-              .where((user) => user.id != _logInUserData.id)
-              .toList();
-        }
+      //_decodedList contains all the Users in the db
+      //_newList contains all Users in the db except the _logInUserData
+      if (_logInUserData != null) {
+        _newList =
+            _decodedList.where((user) => user.id != _logInUserData.id).toList();
+      } //assign the RxList<User> _usersList = <User>[].obs in the UserController to the _newList
+      _userController.setNewUserListFromSocket(_newList);
+    });
+    //listen to the 'receive_message' namespace to get the message content of other user (i.e. receiver)
+    socket.on('receive_message', (data) {
+      String _content = data['content'].toString();
+      DateTime _createdAt = DateTime.parse(data['createdAt'].toString());
 
-        //assign the RxList<User> _usersList = <User>[].obs in the UserController to the _newList
-        _userController.setNewUserListFromSocket(_newList);
-      });
-
-      //listen to the 'receive_message' socket to get the message content of other user (i.e. receiver)
-      socket.on('receive_message', (data) {
-        String _content = data['content'].toString();
-        DateTime _createdAt = DateTime.parse(data['createdAt'].toString());
-
-        //add the Message to the messageList in GetX MessageController class
-        _messageController.addMessage(
-            message: _content, isMy: false, createdAt: _createdAt);
-
-        //set the Last index in the StreamControllerHelper
-        StreamControllerHelper.shared
-            .setLastIndex(_messageController.getMessageList.length);
-      });
+      //add the Message to the messageList in GetX MessageController class
+      _messageController.addMessage(
+          message: _content, isMy: false, createdAt: _createdAt);
     });
   }
 
@@ -86,6 +75,7 @@ class SocketServiceHelper {
       {required String receiver,
       required String message,
       required DateTime createdAt}) async {
+    //send the query data to the 'send_message' namespace in the server
     socket.emit('send_message', {
       "senderChatID": _logInUserData.id,
       "receiverChatID": receiver,
