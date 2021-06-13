@@ -22,7 +22,7 @@ class MessageServiceHelper {
           headers: _header,
           body: _body);
 
-      var jsonBody = jsonDecode(response.body);
+      var jsonBody = response.body;
 
       if (response.statusCode == 200) {
         List<Message> _messageList = messagesFromJson(jsonBody).toList();
