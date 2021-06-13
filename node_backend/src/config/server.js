@@ -16,8 +16,7 @@ app.get("/", (req, res) => {
   res.send("Hello Chat");
 });
 
-// const PORT = process.env.PORT || 4000;
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 server.listen(PORT, "0.0.0.0",() => console.log(`Server started on port ${PORT}`));
 
