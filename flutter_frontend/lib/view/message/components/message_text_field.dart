@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 
 import 'package:flutter_frontend/model/user.dart';
 
-import 'package:flutter_frontend/controller/socket/socket_controller.dart';
+import 'package:flutter_frontend/controller/message/message_controller.dart';
 
 import 'package:flutter_frontend/utilities/constants.dart';
 import 'package:flutter_frontend/utilities/size_config.dart';
 
 class MessageTextField extends HookWidget {
   final User user;
-  final SocketController _socketController = Get.find();
+  final MessageController _messageController = Get.find();
 
   MessageTextField({required this.user});
   @override
@@ -45,7 +45,7 @@ class MessageTextField extends HookWidget {
               GestureDetector(
                 onTap: () async {
                   if (_messageTextEditingController.text.trim().isNotEmpty) {
-                    await _socketController.sendMessageToSocket(
+                    await _messageController.sendMessage(
                       receiver: user.id,
                       message: _messageTextEditingController.text,
                     );
