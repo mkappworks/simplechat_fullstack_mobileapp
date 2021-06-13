@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/controller/user/user_controller.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -19,8 +20,10 @@ class _MessageViewState extends State<MessageView> {
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
   final MessageController _messageController = Get.find();
+  final UserController _userController = Get.find();
 
-  bool isStart = false;
+  bool _isWidgetTreeBuilt = false;
+  bool _isReceiverIDLoggedIn = false;
 
   @override
   void initState() {
@@ -29,8 +32,7 @@ class _MessageViewState extends State<MessageView> {
   }
 
   _startUpSequence() async {
-    isStart = false;
-
+    _isWidgetTreeBuilt = false;
     //if the messages are loading - is the messages fetched from the db is not empty
     //then using a WidgetsBinding.instance?.addPostFrameCallback a  itemScrollController.jumpTo is excuted
     //the WidgetsBinding.instance?.addPostFrameCallback ensures that the jumpTo happens after the Widget tree is mounted
@@ -41,18 +43,26 @@ class _MessageViewState extends State<MessageView> {
       });
     }
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      isStart = true;
+      _isWidgetTreeBuilt = true;
+      //if the receiverID is disconnected from the socket, the MessageScreen is popped
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      print(
-          'start $isStart  length: ${_messageController.getMessageList.length}');
+      _isReceiverIDLoggedIn = _userController.getUsersList
+          .any((user) => user.id == widget.receiverID);
 
+      if (!_isReceiverIDLoggedIn) Get.back();
+
+      /*if the MessageStatus in the MessageController is not empty 
+       and if the widget tree is built and if the MessageList length is more than 9
+      the itemScrollController is activated to scroll the latest  MessageUnit 
+      from outside the viewinset to bottom of viewinset
+       */
       if (_messageController.getMessageStatus.value != MessageStatus.empty &&
-          isStart &&
+          _isWidgetTreeBuilt &&
           _messageController.getMessageList.length > 9) {
         itemScrollController.scrollTo(
             index: _messageController.getMessageList.length - 1,
@@ -60,7 +70,6 @@ class _MessageViewState extends State<MessageView> {
             curve: Curves.easeInOutCubic,
             alignment: 0.725);
       }
-      
       switch (_messageController.getMessageStatus.value) {
         case MessageStatus.loading:
           return Flexible(
