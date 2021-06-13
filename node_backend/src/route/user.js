@@ -4,11 +4,13 @@ const User = require("../model/user");
 //save user info to mongodb at login
 router.post("/login", async (req, res) => {
   try {
+    //get the User doc containing the email: req.body.email
     const document = await User.findOne({ email: req.body.email });
     if(document !=null){
           console.log("/login post router SUCCESS - document found in DB");
           res.status(200);
     }else{
+      //if the doc is not in the db it saves it in the db 
       const newDocument = new User({
         email: req.body.email,
         name: req.body.name,

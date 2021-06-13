@@ -6,6 +6,7 @@ router.post("/fetchmessage", async (req, res) => {
   let receiverID = req.body.receiver;
 
   try {
+    //find and returns the doc containing the matching _id: receiverID in the users list
     const document = await Message.find(
       { _id: senderID },
       {
