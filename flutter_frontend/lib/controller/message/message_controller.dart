@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 import 'package:flutter_frontend/model/message.dart';
 
-import 'package:flutter_frontend/controller/helper/stream_controller_helper.dart';
 import 'package:flutter_frontend/controller/message/helper/message_service_helper.dart';
 import 'package:flutter_frontend/controller/socket/socket_controller.dart';
 
@@ -36,8 +35,6 @@ class MessageController extends GetxController {
 
     addMessage(message: message, isMy: true, createdAt: _createdAt);
 
-    StreamControllerHelper.shared.setLastIndex(getMessageList.length);
-
     await _socketController.sendMessageToSocket(
         receiver: receiver, message: message, createdAt: _createdAt);
   }
@@ -48,13 +45,20 @@ class MessageController extends GetxController {
       required bool isMy,
       required DateTime createdAt}) {
     Message currentMessage =
-        Message( message: message, isMy: isMy, createdAt: createdAt);
+        Message(message: message, isMy: isMy, createdAt: createdAt);
 
     List<Message> _updatedMessageList = [..._messageList, currentMessage];
 
     _messageList.assignAll(_updatedMessageList);
 
     _messageStatus.value = MessageStatus.loaded;
+    update();
+  }
+
+  //GetX controller to reset the properties of the controller when the user logs out
+  void resetProperties() {
+    _messageList.clear();
+    _messageStatus.value = MessageStatus.empty;
     update();
   }
 
