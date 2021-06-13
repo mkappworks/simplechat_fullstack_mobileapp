@@ -67,6 +67,7 @@ class SocketServiceHelper {
   Future<void> disconnectSocket() async {
     if (_logInUserData != null) {
       socket.disconnect();
+      socket.dispose();
     }
   }
 
