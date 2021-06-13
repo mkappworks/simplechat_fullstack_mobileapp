@@ -32,7 +32,7 @@ class MessageUnit extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(left: 12, right: 12, bottom: 4),
               child: Text(
-                DateFormat('HH:mm').format(DateTime.parse(message.createdAt)),
+                DateFormat('HH:mm').format(message.createdAt),
                 style: TextStyle(
                     color: Colors.blueGrey,
                     fontSize: 14,
