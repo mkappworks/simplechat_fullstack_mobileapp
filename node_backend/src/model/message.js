@@ -5,8 +5,8 @@ const contentSchema = new Schema(
   {
     isMy: Boolean,
     message: String,
-  },
-  { timestamps: true }
+    createdAt: Date,
+  }
 );
 
 const receiverSchema = new Schema({
