@@ -1,14 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_frontend/controller/helper/stream_controller_helper.dart';
+import 'package:get/get.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
 import 'package:flutter_frontend/controller/message/message_controller.dart';
 import 'package:flutter_frontend/view/message/components/message_unit.dart';
-
-import 'package:get/get.dart';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class MessageView extends StatefulWidget {
   final String receiverID;
@@ -20,53 +15,52 @@ class MessageView extends StatefulWidget {
 }
 
 class _MessageViewState extends State<MessageView> {
-  ScrollController _scrollController = ScrollController();
-  late StreamSubscription<int> subscription;
-
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
-
   final MessageController _messageController = Get.find();
+
+  bool isStart = false;
 
   @override
   void initState() {
     super.initState();
-    getMessages();
+    _startUpSequence();
   }
 
-  getMessages() async {
-    subscription = StreamControllerHelper.shared.stream.listen((index) {
-      if (index > 1) {
-        itemScrollController.scrollTo(
-            index: index - 1, duration: Duration(milliseconds: 500));
-      }
-    });
-    //await _messageController.fetchMessages(widget.receiverID);
-    if (_messageController.getMessageStatus.value != MessageStatus.empty)
+  _startUpSequence() async {
+    isStart = false;
+
+    //if the messages are loading - is the messages fetched from the db is not empty
+    //then using a WidgetsBinding.instance?.addPostFrameCallback a  itemScrollController.jumpTo is excuted
+    //the WidgetsBinding.instance?.addPostFrameCallback ensures that the jumpTo happens after the Widget tree is mounted
+    if (_messageController.getMessageStatus.value == MessageStatus.loaded) {
       WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
         itemScrollController.jumpTo(
             index: _messageController.getMessageList.length - 1);
       });
-  }
-
-  @override
-  void dispose() async {
-    subscription.cancel();
-    _scrollController.dispose();
-    super.dispose();
+    }
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      isStart = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_messageController.getMessageStatus.value != MessageStatus.empty &&
-        MediaQuery.of(context).viewInsets.bottom > 0) {
-      itemScrollController.scrollTo(
-          index: _messageController.getMessageList.length - 1,
-          duration: Duration(milliseconds: 200));
-    }
-
     return Obx(() {
+      print(
+          'start $isStart  length: ${_messageController.getMessageList.length}');
+
+      if (_messageController.getMessageStatus.value != MessageStatus.empty &&
+          isStart &&
+          _messageController.getMessageList.length > 9) {
+        itemScrollController.scrollTo(
+            index: _messageController.getMessageList.length - 1,
+            duration: Duration(milliseconds: 500),
+            curve: Curves.easeInOutCubic,
+            alignment: 0.725);
+      }
+      
       switch (_messageController.getMessageStatus.value) {
         case MessageStatus.loading:
           return Flexible(
