@@ -18,7 +18,8 @@ class MessageController extends GetxController {
   Future<void> fetchMessages(String receiverID) async {
     _messageStatus.value = MessageStatus.loading;
 
-    _messageList.assignAll(await MessageServiceHelper.shared.fetchMessageList(receiverID));
+    _messageList.assignAll(
+        await MessageServiceHelper.shared.fetchMessageList(receiverID));
 
     if (_messageList.isNotEmpty) {
       _messageStatus.value = MessageStatus.loaded;
@@ -31,19 +32,23 @@ class MessageController extends GetxController {
 //Getx Controller Function to send message intended to a given receiver user
   Future<void> sendMessage(
       {required String receiver, required String message}) async {
-        
-    addMessage(message: message, isMy: true);
+    DateTime _createdAt = DateTime.now();
+
+    addMessage(message: message, isMy: true, createdAt: _createdAt);
 
     StreamControllerHelper.shared.setLastIndex(getMessageList.length);
 
     await _socketController.sendMessageToSocket(
-        receiver: receiver, message: message);
+        receiver: receiver, message: message, createdAt: _createdAt);
   }
 
 //Getx Controller Function to add message of a given receiver user to the messageList
-  void addMessage({required String message, required bool isMy}) {
-    Message currentMessage = Message(
-        message: message, isMy: isMy, createdAt: DateTime.now().toString());
+  void addMessage(
+      {required String message,
+      required bool isMy,
+      required DateTime createdAt}) {
+    Message currentMessage =
+        Message( message: message, isMy: isMy, createdAt: createdAt);
 
     List<Message> _updatedMessageList = [..._messageList, currentMessage];
 

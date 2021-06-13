@@ -60,18 +60,19 @@ class SocketServiceHelper {
 
       //listen to the 'receive_message' socket to get the message content of other user (i.e. receiver)
       socket.on('receive_message', (data) {
-        var content = data['content'].toString();
+        String _content = data['content'].toString();
+        DateTime _createdAt = DateTime.parse(data['createdAt'].toString());
 
         //add the Message to the messageList in GetX MessageController class
-        _messageController.addMessage(message: content, isMy: false);
+        _messageController.addMessage(
+            message: _content, isMy: false, createdAt: _createdAt);
 
         //set the Last index in the StreamControllerHelper
-        StreamControllerHelper.shared.
-            setLastIndex(_messageController.getMessageList.length);
+        StreamControllerHelper.shared
+            .setLastIndex(_messageController.getMessageList.length);
       });
     });
   }
-
 
   //trigger when logging out from the UsersScreen()
   Future<void> disconnectSocket() async {
@@ -82,11 +83,14 @@ class SocketServiceHelper {
 
   //trigger when sending a message
   Future<void> sendMessage(
-      {required String receiver, required String message}) async {
+      {required String receiver,
+      required String message,
+      required DateTime createdAt}) async {
     socket.emit('send_message', {
       "senderChatID": _logInUserData.id,
       "receiverChatID": receiver,
       "content": message,
+      "createdAt": createdAt.toIso8601String(),
     });
   }
 }

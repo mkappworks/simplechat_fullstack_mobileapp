@@ -14,8 +14,8 @@ class SocketController extends GetxController {
   }
 
   Future<void> sendMessageToSocket(
-      {required String receiver, required String message}) async {
+      {required String receiver, required String message, required DateTime createdAt }) async {
     SocketServiceHelper.shared
-        .sendMessage(receiver: receiver, message: message);
+        .sendMessage(receiver: receiver, message: message, createdAt:createdAt);
   }
 }
