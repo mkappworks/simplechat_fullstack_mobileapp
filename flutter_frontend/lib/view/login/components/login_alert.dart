@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_frontend/utilities/constants.dart';
 
-class LoginAlert extends StatelessWidget {
+class LoginAlert {
   final String title;
   final String bodyMessage;
 
@@ -9,25 +10,11 @@ class LoginAlert extends StatelessWidget {
     required this.bodyMessage,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(title),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: <Widget>[
-            Text(bodyMessage),
-          ],
-        ),
-      ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('Close'),
-        ),
-      ],
-    );
+  getAlert() {
+    Get.snackbar(title, bodyMessage,
+        snackPosition: SnackPosition.TOP,
+        colorText: kColorBlack,
+        backgroundColor: kColorGrey.withOpacity(0.5),
+        isDismissible: true);
   }
 }
