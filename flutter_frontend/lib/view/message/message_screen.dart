@@ -17,7 +17,7 @@ class MessageScreen extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as UserArguments;
 
     return Scaffold(
-      backgroundColor: KColorWhite,
+      backgroundColor: kColorWhite,
       body: MessageBody(user: args.user),
     );
   }

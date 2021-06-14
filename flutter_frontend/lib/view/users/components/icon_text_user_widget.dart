@@ -45,7 +45,7 @@ class IconTextUserWidget extends StatelessWidget {
                 style: Theme.of(context)
                     .textTheme
                     .headline3
-                    ?.copyWith(color: KColorWhite),
+                    ?.copyWith(color: kColorWhite),
               ),
             ),
           ),

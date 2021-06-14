@@ -18,12 +18,13 @@ const String kAgePlaceHolder = "Please Enter your Age";
 const String kGenderPlaceHolder = "Please Enter your Gender";
 
 const String kMessagePlaceHolder = "Type a Message";
+const String kSearchPlaceHolder = "Search for a Message";
 
 //App colours
 const kColorYellow = Color.fromRGBO(251, 173, 57, 1);
 const kColorLightBlue = Color.fromRGBO(57, 160, 251, 1);
-const KColorGrey = Colors.grey;
-const KColorWhite = Colors.white;
+const kColorGrey = Colors.grey;
+const kColorWhite = Colors.white;
 const kColorBlack = Colors.black;
 
 //App themes
@@ -41,9 +42,9 @@ const TextTheme kTextThemeDefault = TextTheme(
   headline6:
       TextStyle(color: kColorBlack, fontWeight: FontWeight.w700, fontSize: 12),
   subtitle1:
-      TextStyle(color: KColorGrey, fontSize: 18, fontWeight: FontWeight.w400),
+      TextStyle(color: kColorGrey, fontSize: 18, fontWeight: FontWeight.w400),
   subtitle2:
-      TextStyle(color: KColorGrey, fontSize: 14, fontWeight: FontWeight.w400),
+      TextStyle(color: kColorGrey, fontSize: 14, fontWeight: FontWeight.w400),
 );
 
 //TextField Input Decoration
@@ -64,7 +65,7 @@ const kTextFieldDecoration = InputDecoration(
 
 final ButtonStyle flatButtonStyle = TextButton.styleFrom(
   backgroundColor: kColorLightBlue,
-  primary: KColorWhite,
+  primary: kColorWhite,
   minimumSize: Size(150, 35),
   //padding: EdgeInsets.symmetric(horizontal: 16.0),
   shape: RoundedRectangleBorder(

@@ -52,7 +52,7 @@ class UsersAppBar extends StatelessWidget {
             ],
           ),
         ),
-        Divider(color: KColorGrey, thickness: 1),
+        Divider(color: kColorGrey, thickness: 1),
       ],
     );
   }
