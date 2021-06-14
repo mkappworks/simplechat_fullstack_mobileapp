@@ -29,11 +29,13 @@ class ProfileModalBottomSheet {
               clipBehavior: Clip.none,
               children: [
                 Positioned(
-                  left: (SizeConfig.defaultSize! / 0.024 - 75) * 0.5,
-                  top: -75 * 0.5,
+                  left: (SizeConfig.defaultSize! / 0.024 -
+                          SizeConfig.defaultSize! * 7) *
+                      0.5,
+                  top: -SizeConfig.defaultSize! * 8 * 0.5,
                   child: Container(
-                    width: 75,
-                    height: 75,
+                    width: SizeConfig.defaultSize! * 7,
+                    height: SizeConfig.defaultSize! * 7,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: kColorLightBlue,
@@ -44,16 +46,19 @@ class ProfileModalBottomSheet {
                         style: Theme.of(context)
                             .textTheme
                             .headline1
-                            ?.copyWith(color: KColorWhite),
+                            ?.copyWith(color: kColorWhite),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
+                  left: (SizeConfig.defaultSize! / 0.024 -
+                          SizeConfig.defaultSize! *20) *
+                      0.5,
                   top: SizeConfig.defaultSize! * 3,
                   child: Container(
-                    width: SizeConfig.defaultSize! / 0.024,
-                    height: SizeConfig.defaultSize! * 18,
+                    width: SizeConfig.defaultSize! * 20,
+                    height: SizeConfig.defaultSize! * 20,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
