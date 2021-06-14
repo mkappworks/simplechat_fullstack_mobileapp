@@ -25,7 +25,7 @@ class MessageTextField extends HookWidget {
 
     return Column(
       children: [
-        Divider(color: KColorGrey, thickness: 1),
+        Divider(color: kColorGrey, thickness: 1),
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
@@ -53,8 +53,8 @@ class MessageTextField extends HookWidget {
                   }
                 },
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: SizeConfig.defaultSize! * 5,
+                  height: SizeConfig.defaultSize! * 5,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: kColorLightBlue,
@@ -62,8 +62,8 @@ class MessageTextField extends HookWidget {
                   child: Center(
                     child: Icon(
                       CupertinoIcons.paperplane_fill,
-                      size: 30,
-                      color: KColorWhite,
+                      size: SizeConfig.defaultSize! * 3,
+                      color: kColorWhite,
                     ),
                   ),
                 ),
