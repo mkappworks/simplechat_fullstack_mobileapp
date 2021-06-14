@@ -1,4 +1,4 @@
-# Project Title : Node Backend for a Socket.io Chat App
+# Node Backend for a Socket.io Chat App
 
 A Simple chat app with Socket.IO enabling real-time bidirectional event-based communication. It consists of: a Node.js server (this repository)
 
