@@ -69,35 +69,42 @@ class LoginBody extends HookWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headline3
-                      ?.copyWith(color: KColorWhite),
+                      ?.copyWith(color: kColorWhite),
                 ),
                 onPressed: () async {
-                  //User Data For Service
-                  Map<String, dynamic> userData = <String, dynamic>{
-                    'email': _emailTextEditingController.text,
-                    'name': _nameTextEditingController.text,
-                    'age': '_ageTextEditingController.text',
-                    'gender': '_genderTextEditingController.text'
-                  };
+                  if (_emailTextEditingController.text.trim().isNotEmpty &&
+                      _nameTextEditingController.text.trim().isNotEmpty &&
+                      _ageTextEditingController.text.trim().isNotEmpty &&
+                      _genderTextEditingController.text.trim().isNotEmpty) {
+                    //User Data For Service
+                    Map<String, dynamic> userData = <String, dynamic>{
+                      'email': _emailTextEditingController.text,
+                      'name': _nameTextEditingController.text,
+                      'age': _ageTextEditingController.text,
+                      'gender': _genderTextEditingController.text
+                    };
 
-                  //triggers function to save current loggedUser data
-                  await _userController.setLoggedUser(userData);
-
-                  if (_userController.getCompletionMessage['status']) {
-                    //triggers function to get all other loggedUser data
-                    await _userController.setUsersList();
-                    //triggers function to connect loggedUser to socket room
-                    await _socketController.connectToSocket();
-                    Navigator.pushReplacementNamed(
-                        context, UsersScreen.routeName);
+                    //triggers function to save current loggedUser data
+                    await _userController.setLoggedUser(userData);
+                    if (_userController.getCompletionMessage['status']) {
+                      //triggers function to get all other loggedUser data
+                      await _userController.setUsersList();
+                      //triggers function to connect loggedUser to socket room
+                      await _socketController.connectToSocket();
+                      Navigator.pushReplacementNamed(
+                          context, UsersScreen.routeName);
+                    } else {
+                      LoginAlert(
+                        title: 'Login',
+                        bodyMessage:
+                            _userController.getCompletionMessage['message'],
+                      ).getAlert();
+                    }
                   } else {
-                    showDialog(
-                        context: context,
-                        builder: (context) => LoginAlert(
-                              title: 'Login',
-                              bodyMessage: _userController
-                                  .getCompletionMessage['message'],
-                            ));
+                    LoginAlert(
+                      title: 'Login',
+                      bodyMessage: "Please enter the login details",
+                    ).getAlert();
                   }
                 },
               ),
