@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/controller/search/search_controller.dart';
 import 'package:flutter_frontend/controller/user/user_controller.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -21,9 +22,11 @@ class _MessageViewState extends State<MessageView> {
       ItemPositionsListener.create();
   final MessageController _messageController = Get.find();
   final UserController _userController = Get.find();
+  final SearchController _searchController = Get.find();
 
   bool _isWidgetTreeBuilt = false;
   bool _isReceiverIDLoggedIn = false;
+  bool _isCurrentSearch = false;
 
   @override
   void initState() {
@@ -84,8 +87,18 @@ class _MessageViewState extends State<MessageView> {
               itemPositionsListener: itemPositionsListener,
               itemCount: _messageController.getMessageList.length,
               itemBuilder: (context, index) {
-                return MessageUnit(
-                    message: _messageController.getMessageList[index]);
+                return Obx(() => MessageUnit(
+                      message: _messageController.getMessageList[index],
+                      isCurrentSearch: (_searchController
+                                  .getMessagePositionList.isNotEmpty &&
+                              _searchController.getMessagePositionList[
+                                      _searchController
+                                          .getCurrentSelectMessageIndex
+                                          .value] ==
+                                  index)
+                          ? true
+                          : false,
+                    ));
               },
             ),
           );
