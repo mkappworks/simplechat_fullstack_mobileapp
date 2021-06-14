@@ -20,11 +20,10 @@ class MessageController extends GetxController {
     _messageList.assignAll(
         await MessageServiceHelper.shared.fetchMessageList(receiverID));
 
-    if (_messageList.isNotEmpty) {
-      _messageStatus.value = MessageStatus.loaded;
-    } else {
-      _messageStatus.value = MessageStatus.empty;
-    }
+    (_messageList.isNotEmpty)
+        ? _messageStatus.value = MessageStatus.loaded
+        : _messageStatus.value = MessageStatus.empty;
+
     update();
   }
 

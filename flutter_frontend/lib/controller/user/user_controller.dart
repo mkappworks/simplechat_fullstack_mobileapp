@@ -15,11 +15,11 @@ class UserController extends GetxController {
 
   //GetX Controller function to get the User logged in the database
   Future<void> setLoggedUser(Map<String, dynamic> userData) async {
-    var _completeMessageValue = await UserServiceHelper.shared.login(userData);
+    _completeMessage = await UserServiceHelper.shared.login(userData);
     var _userValue = await LocalStorageHelper.shared.getUserInfoFromLocale();
+
     if (_userValue != null) {
       _loggedInUser = _userValue;
-      _completeMessage = _completeMessageValue;
     }
     update();
   }
@@ -36,13 +36,13 @@ class UserController extends GetxController {
   //GetX Controller function to get the all Users logged in the database (except the current user) and assign it to _userList
   Future<void> setUsersList() async {
     _status.value = ListStatus.loading;
-    _usersList.assignAll(await UserServiceHelper.shared.fetchUserList(_loggedInUser));
+    _usersList
+        .assignAll(await UserServiceHelper.shared.fetchUserList(_loggedInUser));
 
-    if (_usersList.isEmpty) {
-      _status.value = ListStatus.empty;
-    } else {
-      _status.value = ListStatus.loaded;
-    }
+    (_usersList.isEmpty)
+        ? _status.value = ListStatus.empty
+        : _status.value = ListStatus.loaded;
+
     update();
   }
 
@@ -51,11 +51,10 @@ class UserController extends GetxController {
     _status.value = ListStatus.loading;
     _usersList.assignAll(userList);
 
-    if (_usersList.isEmpty) {
-      _status.value = ListStatus.empty;
-    } else {
-      _status.value = ListStatus.loaded;
-    }
+    (_usersList.isEmpty)
+        ? _status.value = ListStatus.empty
+        : _status.value = ListStatus.loaded;
+
     update();
   }
 
