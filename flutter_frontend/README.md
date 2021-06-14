@@ -1,4 +1,4 @@
-# Flutter Frontend
+# Simple Chat App - Flutter Frontend
 
 Flutter Frontend project implmented using socket.io and GetX
 
