@@ -33,7 +33,7 @@ class UserServiceHelper {
         };
       }
     } catch (error) {
-      return {'status': false, 'message': 'Login trycatch $error'};
+      return {'status': false, 'message': 'Oops Something went wrong on our side. Please try again!'};
     }
   }
 
