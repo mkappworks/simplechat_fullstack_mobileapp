@@ -8,7 +8,7 @@ router.post("/login", async (req, res) => {
     const document = await User.findOne({ email: req.body.email });
     if(document !=null){
           console.log("/login post router SUCCESS - document found in DB");
-          res.status(200);
+          res.sendStatus(200);
     }else{
       //if the doc is not in the db it saves it in the db 
       const newDocument = new User({
